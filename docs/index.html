@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#09090b">
+    <title>Calottino Avionici 154</title>
+    <link rel="icon" href="assets/logo-patch.jpg">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#dashboard" aria-label="Calottino Avionici 154">
+        <img src="assets/logo-patch.jpg" alt="Patch Avionici 154">
+        <span>
+          <strong>Calottino</strong>
+          <small>Avionici 154</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Sezioni principali">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#quote">Quote</a>
+        <a href="#patch">Patch</a>
+        <a href="#spese">Spese</a>
+        <a href="#statuto">Statuto</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="dashboard" class="hero-section">
+        <div class="hero-copy">
+          <p class="status-line">Aggiornato da Excel <span id="updatedAt">...</span></p>
+          <h1><span>Calottino</span><span>Avionici 154</span></h1>
+          <p id="workbookSubtitle">Gestione quote, patch, magazzino, ricavi, cassa e spese di categoria.</p>
+        </div>
+        <div class="hero-balance" aria-label="Riepilogo cassa">
+          <span>Cassa disponibile</span>
+          <strong id="cashHero">...</strong>
+          <small>Sito in sola lettura</small>
+        </div>
+      </section>
+
+      <section class="kpi-section" aria-label="Indicatori principali">
+        <div class="section-inner">
+          <div id="kpiGrid" class="kpi-grid"></div>
+        </div>
+      </section>
+
+      <section class="overview-section">
+        <div class="section-inner overview-grid">
+          <article class="panel panel-dark">
+            <div class="section-heading">
+              <span>Quote</span>
+              <h2>Stato incassi</h2>
+            </div>
+            <div class="progress-ring-wrap">
+              <div class="progress-ring" id="duesRing" style="--progress: 0deg">
+                <span id="duesRate">0%</span>
+              </div>
+              <div>
+                <p id="duesText">...</p>
+                <div class="bar-track"><span id="duesBar"></span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="section-heading">
+              <span>Flussi</span>
+              <h2>Entrate e uscite</h2>
+            </div>
+            <div id="flowList" class="flow-list"></div>
+          </article>
+
+          <article class="panel logo-panel">
+            <img src="assets/logo-patch.jpg" alt="Patch Avionici 154">
+            <div>
+              <div class="section-heading">
+                <span>Patch</span>
+                <h2>Magazzino</h2>
+              </div>
+              <div id="inventoryList" class="mini-list"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="quote" class="data-section">
+        <div class="section-inner">
+          <div class="section-head-row">
+            <div class="section-heading">
+              <span>Componenti</span>
+              <h2>Quote iniziali</h2>
+            </div>
+            <label class="search-box">
+              <span>Cerca</span>
+              <input id="memberSearch" type="search" placeholder="Cognome o stato">
+            </label>
+          </div>
+          <div id="peopleTable" class="table-shell"></div>
+        </div>
+      </section>
+
+      <section id="patch" class="data-section section-alt">
+        <div class="section-inner split-grid">
+          <div>
+            <div class="section-heading">
+              <span>Patch</span>
+              <h2>Vendite</h2>
+            </div>
+            <div id="salesTable" class="table-shell compact"></div>
+          </div>
+          <div>
+            <div class="section-heading">
+              <span>Magazzino</span>
+              <h2>Acquisti</h2>
+            </div>
+            <div id="purchasesTable" class="table-shell compact"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="spese" class="data-section">
+        <div class="section-inner split-grid">
+          <div>
+            <div class="section-heading">
+              <span>Categoria</span>
+              <h2>Spese</h2>
+            </div>
+            <div id="expensesTable" class="table-shell compact"></div>
+          </div>
+          <div>
+            <div class="section-heading">
+              <span>Parametri</span>
+              <h2>Regole economiche</h2>
+            </div>
+            <div id="parametersTable" class="table-shell compact"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="statuto" class="statute-section">
+        <div class="section-inner">
+          <div class="section-heading statute-title">
+            <span>Regolamento</span>
+            <h2>Statuto del calottino</h2>
+          </div>
+          <div class="statute-layout">
+            <aside class="statute-aside">
+              <p id="statuteNotice"></p>
+              <nav id="statuteIndex" aria-label="Indice statuto"></nav>
+            </aside>
+            <div id="statuteContent" class="statute-content"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Calottino Avionici 154</span>
+      <span id="sourceInfo">Fonte: Excel</span>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

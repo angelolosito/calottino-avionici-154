@@ -1,0 +1,1191 @@
+{
+  "generatedAt": "2026-06-16T14:09:43.572545+00:00",
+  "sources": {
+    "excel": {
+      "file": "calottino_categoria_gestione.xlsx",
+      "modifiedAt": "2026-06-16T15:46:52.839569"
+    },
+    "statute": {
+      "file": "statuto_calottino_categoria_avionici.docx",
+      "modifiedAt": "2026-06-03T17:13:03.218567"
+    }
+  },
+  "excel": {
+    "workbookTitle": "Dashboard calottino di categoria",
+    "workbookSubtitle": "Gestione quote, patch, magazzino, ricavi, cassa e spese di categoria",
+    "summary": {
+      "cashAvailable": 175.0,
+      "duesCollected": 175.0,
+      "patchRevenue": 0.0,
+      "patchPurchaseCost": 0.0,
+      "categoryExpenses": 0.0,
+      "patchGrossProfit": 0,
+      "patchPurchased": 0.0,
+      "patchSold": 0.0,
+      "patchAvailable": 0.0,
+      "breakEvenPatches": 0.0,
+      "patchUnitMargin": 6.0,
+      "membersTotal": 15,
+      "membersPaid": 7,
+      "membersPartial": 0,
+      "membersOpen": 8,
+      "duesExpected": 375.0,
+      "duesRemaining": 200.0,
+      "duesCompletionRate": 46.7,
+      "purchasesCount": 0,
+      "salesCount": 0,
+      "expensesCount": 0
+    },
+    "parameters": {
+      "title": "Parametri principali del calottino",
+      "sheet": "Parametri",
+      "headers": [
+        "Voce",
+        "Valore",
+        "Unità",
+        "Note"
+      ],
+      "rows": [
+        {
+          "Voce": "Numero componenti",
+          "Valore": 15,
+          "Unità": "persone",
+          "Note": "Totale membri del gruppo/categoria"
+        },
+        {
+          "Voce": "Quota iniziale",
+          "Valore": 25,
+          "Unità": "€",
+          "Note": "Quota una tantum versata da ciascun componente"
+        },
+        {
+          "Voce": "Costo unitario patch",
+          "Valore": 4,
+          "Unità": "€",
+          "Note": "Prezzo pagato al fornitore per ogni patch"
+        },
+        {
+          "Voce": "Prezzo rivendita patch",
+          "Valore": 10,
+          "Unità": "€",
+          "Note": "Prezzo di vendita previsto per ogni patch"
+        },
+        {
+          "Voce": "Margine unitario patch",
+          "Valore": 6,
+          "Unità": "€",
+          "Note": "Calcolato automaticamente: prezzo vendita - costo acquisto"
+        },
+        {
+          "Voce": "Obiettivo fondo minimo",
+          "Valore": 0,
+          "Unità": "€",
+          "Note": "Facoltativo: imposta un obiettivo di cassa"
+        },
+        {
+          "Voce": "Costo internet/WiFi mensile stimato",
+          "Valore": 0,
+          "Unità": "€",
+          "Note": "Facoltativo: utile per stimare i mesi coperti"
+        }
+      ]
+    },
+    "people": {
+      "title": "Quote iniziali dei componenti",
+      "sheet": "Persone_Quote",
+      "headers": [
+        "ID",
+        "Nome / Cognome",
+        "Quota dovuta",
+        "Quota pagata",
+        "Saldo",
+        "Stato",
+        "Data pagamento",
+        "Metodo",
+        "Note"
+      ],
+      "rows": [
+        {
+          "ID": 1,
+          "Nome / Cognome": "Capodanno",
+          "Quota dovuta": 25,
+          "Quota pagata": 0,
+          "Saldo": -25,
+          "Stato": "Da pagare",
+          "Data pagamento": null,
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "ID": 2,
+          "Nome / Cognome": "Caggia",
+          "Quota dovuta": 25,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "16/06/2026",
+          "Metodo": "PayPal",
+          "Note": null
+        },
+        {
+          "ID": 3,
+          "Nome / Cognome": "Marchesani",
+          "Quota dovuta": 25,
+          "Quota pagata": 0,
+          "Saldo": -25,
+          "Stato": "Da pagare",
+          "Data pagamento": null,
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "ID": 4,
+          "Nome / Cognome": "Zubenko",
+          "Quota dovuta": 25,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "16/06/2026",
+          "Metodo": "PayPal",
+          "Note": null
+        },
+        {
+          "ID": 5,
+          "Nome / Cognome": "Losito",
+          "Quota dovuta": 25,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "16/06/2026",
+          "Metodo": "PayPal",
+          "Note": null
+        },
+        {
+          "ID": 6,
+          "Nome / Cognome": "Di Stefano",
+          "Quota dovuta": 25,
+          "Quota pagata": 0,
+          "Saldo": -25,
+          "Stato": "Da pagare",
+          "Data pagamento": null,
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "ID": 7,
+          "Nome / Cognome": "Palladino",
+          "Quota dovuta": 25,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "16/06/2026",
+          "Metodo": "PayPal",
+          "Note": null
+        },
+        {
+          "ID": 8,
+          "Nome / Cognome": "Locorotondo",
+          "Quota dovuta": 25,
+          "Quota pagata": 0,
+          "Saldo": -25,
+          "Stato": "Da pagare",
+          "Data pagamento": null,
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "ID": 9,
+          "Nome / Cognome": "Pertosa",
+          "Quota dovuta": 25,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "16/06/2026",
+          "Metodo": "PayPal",
+          "Note": null
+        },
+        {
+          "ID": 10,
+          "Nome / Cognome": "Ottaiano",
+          "Quota dovuta": 25,
+          "Quota pagata": 0,
+          "Saldo": -25,
+          "Stato": "Da pagare",
+          "Data pagamento": null,
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "ID": 11,
+          "Nome / Cognome": "Fragnito",
+          "Quota dovuta": 25,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "16/06/2026",
+          "Metodo": "PayPal",
+          "Note": null
+        },
+        {
+          "ID": 12,
+          "Nome / Cognome": "Murolo",
+          "Quota dovuta": 25,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "16/06/2026",
+          "Metodo": "PayPal",
+          "Note": null
+        },
+        {
+          "ID": 13,
+          "Nome / Cognome": "Palma",
+          "Quota dovuta": 25,
+          "Quota pagata": 0,
+          "Saldo": -25,
+          "Stato": "Da pagare",
+          "Data pagamento": null,
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "ID": 14,
+          "Nome / Cognome": "Babele",
+          "Quota dovuta": 25,
+          "Quota pagata": 0,
+          "Saldo": -25,
+          "Stato": "Da pagare",
+          "Data pagamento": null,
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "ID": 15,
+          "Nome / Cognome": "Torrente",
+          "Quota dovuta": 25,
+          "Quota pagata": 0,
+          "Saldo": -25,
+          "Stato": "Da pagare",
+          "Data pagamento": null,
+          "Metodo": null,
+          "Note": null
+        }
+      ]
+    },
+    "purchases": {
+      "title": "Acquisti patch / lotti ordinati",
+      "sheet": "Acquisti_Patch",
+      "headers": [
+        "Data",
+        "Fornitore",
+        "Lotto / Descrizione",
+        "Quantità",
+        "Costo unitario",
+        "Costo totale",
+        "Pagato da",
+        "Stato pagamento",
+        "Note"
+      ],
+      "rows": []
+    },
+    "sales": {
+      "title": "Vendite patch / ricavi",
+      "sheet": "Vendite_Patch",
+      "headers": [
+        "Data",
+        "Acquirente",
+        "Descrizione",
+        "Quantità",
+        "Prezzo unitario",
+        "Ricavo",
+        "Costo stimato",
+        "Utile lordo",
+        "Incassato?",
+        "Metodo",
+        "Note"
+      ],
+      "rows": []
+    },
+    "expenses": {
+      "title": "Spese di categoria",
+      "sheet": "Spese_Categoria",
+      "headers": [
+        "Data",
+        "Categoria",
+        "Descrizione",
+        "Importo",
+        "Pagato da",
+        "Metodo",
+        "Approvata?",
+        "Note"
+      ],
+      "rows": []
+    },
+    "flows": {
+      "title": "Flussi principali",
+      "headers": [
+        "Voce",
+        "Importo",
+        "Segno",
+        "Note"
+      ],
+      "rows": [
+        {
+          "Voce": "Quote incassate",
+          "Importo": 175,
+          "Segno": "Entrata",
+          "Note": "Quote iniziali pagate dai 15 componenti"
+        },
+        {
+          "Voce": "Ricavi patch incassati",
+          "Importo": 0,
+          "Segno": "Entrata",
+          "Note": "Vendite registrate come incassate"
+        },
+        {
+          "Voce": "Costo acquisti patch",
+          "Importo": 0,
+          "Segno": "Uscita",
+          "Note": "Acquisti patch registrati come pagati/parziali"
+        },
+        {
+          "Voce": "Spese categoria",
+          "Importo": 0,
+          "Segno": "Uscita",
+          "Note": "Spese approvate per ufficio, pranzi, eventi"
+        },
+        {
+          "Voce": "Cassa disponibile stimata",
+          "Importo": 175,
+          "Segno": "Saldo",
+          "Note": "Entrate - uscite"
+        }
+      ]
+    },
+    "inventory": {
+      "title": "Magazzino patch",
+      "headers": [
+        "Voce",
+        "Valore",
+        "Unità",
+        "Note"
+      ],
+      "rows": [
+        {
+          "Voce": "Patch acquistate",
+          "Valore": 0,
+          "Unità": "pezzi",
+          "Note": "Totale inserito in Acquisti_Patch"
+        },
+        {
+          "Voce": "Patch vendute",
+          "Valore": 0,
+          "Unità": "pezzi",
+          "Note": "Totale inserito in Vendite_Patch"
+        },
+        {
+          "Voce": "Patch disponibili",
+          "Valore": 0,
+          "Unità": "pezzi",
+          "Note": "Acquistate - vendute"
+        },
+        {
+          "Voce": "Break-even acquisti",
+          "Valore": 0,
+          "Unità": "pezzi",
+          "Note": "Patch da vendere per coprire il costo acquisti"
+        },
+        {
+          "Voce": "Margine unitario",
+          "Valore": 6,
+          "Unità": "€",
+          "Note": "Prezzo rivendita - costo unitario"
+        }
+      ]
+    },
+    "worksheets": [
+      "Dashboard",
+      "Istruzioni",
+      "Parametri",
+      "Persone_Quote",
+      "Acquisti_Patch",
+      "Vendite_Patch",
+      "Spese_Categoria",
+      "Magazzino_Cassa",
+      "Liste"
+    ]
+  },
+  "statute": {
+    "title": "STATUTO / REGOLAMENTO DEL CALOTTINO DI CATEGORIA AVIONICI",
+    "subtitle": "Fondo comune, gestione patch/toppe, attività di categoria e regali di rappresentanza",
+    "notice": "Nota operativa: questa bozza disciplina una gestione interna e trasparente del fondo di categoria. Non sostituisce eventuali valutazioni amministrative, fiscali, disciplinari o autorizzative da parte degli organi competenti.",
+    "frontBlocks": [
+      {
+        "type": "paragraph",
+        "text": "STATUTO / REGOLAMENTO DEL CALOTTINO DI CATEGORIA AVIONICI"
+      },
+      {
+        "type": "paragraph",
+        "text": "Fondo comune, gestione patch/toppe, attività di categoria e regali di rappresentanza"
+      },
+      {
+        "type": "table",
+        "rows": [
+          [
+            "Versione",
+            "Bozza per approvazione dei componenti"
+          ],
+          [
+            "Categoria",
+            "Avionici"
+          ],
+          [
+            "Numero componenti previsto",
+            "15"
+          ],
+          [
+            "Quota iniziale proposta",
+            "25,00 euro una tantum"
+          ],
+          [
+            "Dotazione iniziale",
+            "2 patch/toppe di categoria a testa"
+          ],
+          [
+            "Costo indicativo patch",
+            "4,00 euro cadauna"
+          ],
+          [
+            "Prezzo indicativo vendita patch",
+            "10,00 euro cadauna"
+          ]
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Nota operativa: questa bozza disciplina una gestione interna e trasparente del fondo di categoria. Non sostituisce eventuali valutazioni amministrative, fiscali, disciplinari o autorizzative da parte degli organi competenti."
+      }
+    ],
+    "sections": [
+      {
+        "title": "Premessa",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Il presente documento disciplina la costituzione e la gestione del Calottino di Categoria Avionici, prendendo spunto dalla struttura già utilizzata in regolamenti interni analoghi: scopo del fondo, definizioni, alimentazione tramite quote e vendita di materiale, contabilità consultabile, rendiconto periodico, compiti dei gestori e criteri per i regali di rappresentanza."
+          },
+          {
+            "type": "paragraph",
+            "text": "La versione è stata adattata a una realtà di categoria composta indicativamente da 15 componenti, con focus principale su acquisto e vendita di patch/toppe, gestione del fondo comune, migliorie dell’ufficio, servizi condivisi e iniziative conviviali."
+          }
+        ]
+      },
+      {
+        "title": "1. Scopo e finalità",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Il Calottino di Categoria Avionici nasce con lo scopo di mantenere e rafforzare lo spirito di categoria, favorire la coesione tra il personale avionico e gestire un fondo comune destinato ad attività, materiali e iniziative di interesse collettivo."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il fondo del Calottino è destinato principalmente all’acquisto, alla gestione e alla vendita di patch/toppe di categoria; al miglioramento degli spazi comuni e dell’ufficio; all’eventuale attivazione e mantenimento di servizi condivisi, come internet e Wi-Fi; all’organizzazione di pranzi, cene o momenti conviviali di categoria; all’acquisto di regali per eventi significativi dei componenti; all’acquisto di materiali, gadget, crest, litografie, penne, targhe o altri oggetti rappresentativi della categoria."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il Calottino non ha finalità di lucro personale. Eventuali ricavi derivanti dalla vendita di patch/toppe, gadget o altro materiale sono destinati esclusivamente al fondo comune e non possono essere distribuiti ai singoli componenti o ai soci gestori."
+          }
+        ]
+      },
+      {
+        "title": "2. Definizioni",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Calottino: il fondo comune interno della Categoria Avionici, alimentato dalle quote dei componenti, dai ricavi della vendita di patch/toppe e da eventuali contributi volontari."
+          },
+          {
+            "type": "paragraph",
+            "text": "Componenti o soci: il personale appartenente alla Categoria Avionici che aderisce al Calottino mediante versamento della quota iniziale prevista."
+          },
+          {
+            "type": "paragraph",
+            "text": "Soci gestori: uno o più componenti incaricati della gestione del fondo, della contabilità, degli acquisti, delle vendite e dell’aggiornamento del rendiconto."
+          },
+          {
+            "type": "paragraph",
+            "text": "Referente del Calottino: il componente individuato come responsabile principale della gestione organizzativa, salvo diversa decisione dei soci."
+          },
+          {
+            "type": "paragraph",
+            "text": "Fondo cassa: la disponibilità economica del Calottino, derivante da quote, ricavi da vendite, contributi volontari ed eventuali eccedenze."
+          },
+          {
+            "type": "paragraph",
+            "text": "Spese ordinarie: le spese già previste dal presente regolamento, sostenibili dai soci gestori se coerenti con le finalità del Calottino e compatibili con la disponibilità del fondo."
+          },
+          {
+            "type": "paragraph",
+            "text": "Spese straordinarie: le spese non previste dal regolamento, di importo rilevante o idonee a creare impegni economici futuri."
+          }
+        ]
+      },
+      {
+        "title": "3. Componenti e adesione",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Possono aderire al Calottino i componenti della Categoria Avionici."
+          },
+          {
+            "type": "paragraph",
+            "text": "L’adesione avviene mediante il versamento della quota iniziale stabilita dal presente regolamento."
+          },
+          {
+            "type": "paragraph",
+            "text": "L’adesione comporta l’accettazione del presente regolamento, delle modalità di gestione del fondo, delle regole di rendicontazione e dei criteri di destinazione delle somme raccolte."
+          },
+          {
+            "type": "paragraph",
+            "text": "I componenti aderenti hanno diritto di consultare la contabilità, proporre modifiche, chiedere chiarimenti ai soci gestori e partecipare alle decisioni sulle spese straordinarie."
+          }
+        ]
+      },
+      {
+        "title": "4. Quote e dotazione iniziale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "La quota iniziale è stabilita in 25,00 euro una tantum per ciascun componente aderente."
+          },
+          {
+            "type": "paragraph",
+            "text": "La quota iniziale serve a costituire il fondo cassa iniziale e a finanziare il primo acquisto di patch/toppe di categoria."
+          },
+          {
+            "type": "paragraph",
+            "text": "All’atto dell’adesione, ogni componente ha diritto a ricevere n. 2 patch/toppe di categoria, salvo indisponibilità momentanea del materiale."
+          },
+          {
+            "type": "paragraph",
+            "text": "Le patch/toppe consegnate come dotazione iniziale sono comprese nella quota di iscrizione."
+          },
+          {
+            "type": "paragraph",
+            "text": "Eventuali quote straordinarie potranno essere deliberate solo previa comunicazione ai componenti e approvazione secondo le modalità previste dal presente regolamento."
+          }
+        ]
+      },
+      {
+        "title": "5. Alimentazione del fondo",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Il fondo del Calottino è alimentato da: quota iniziale dei componenti; eventuali quote straordinarie deliberate; ricavi derivanti dalla vendita di patch/toppe; ricavi derivanti dalla vendita di eventuali gadget di categoria; contributi volontari; eventuali rimborsi o eccedenze non utilizzate."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il prezzo indicativo di acquisto delle patch/toppe è stabilito in 4,00 euro cadauna."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il prezzo indicativo di vendita delle patch/toppe è stabilito in 10,00 euro cadauna."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il margine derivante dalla vendita è destinato interamente al fondo comune del Calottino."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il prezzo di acquisto e di vendita può essere aggiornato dai soci gestori in base ai costi effettivi di produzione, spedizione, disponibilità del fondo, andamento del magazzino e decisioni del gruppo."
+          }
+        ]
+      },
+      {
+        "title": "6. Produzione, acquisto e vendita patch/toppe",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "La produzione, l’acquisto e la vendita delle patch/toppe costituiscono una delle finalità principali del Calottino."
+          },
+          {
+            "type": "paragraph",
+            "text": "I soci gestori curano la ricerca dei fornitori, il confronto dei prezzi, l’ordine del materiale, il pagamento del fornitore, la verifica della merce ricevuta, l’aggiornamento del magazzino, la consegna delle dotazioni iniziali e la vendita delle patch/toppe disponibili."
+          },
+          {
+            "type": "paragraph",
+            "text": "La vendita delle patch/toppe è ammessa secondo il prezzo stabilito dal presente regolamento o dal listino aggiornato. Ogni vendita deve essere registrata nel file di contabilità indicando data, acquirente, quantità, prezzo unitario, totale incassato, metodo di pagamento, stato consegna ed eventuali note."
+          },
+          {
+            "type": "paragraph",
+            "text": "I ricavi della vendita non costituiscono utile personale dei soci gestori o dei componenti, ma confluiscono integralmente nel fondo comune."
+          },
+          {
+            "type": "paragraph",
+            "text": "La produzione, l’utilizzo e la vendita di patch/toppe recanti denominazioni, stemmi, emblemi, segni distintivi, riferimenti a Reparti, Forze Armate, velivoli o simboli istituzionali devono avvenire nel rispetto delle disposizioni applicabili e previa autorizzazione o benestare degli organi competenti, ove necessario."
+          },
+          {
+            "type": "paragraph",
+            "text": "Eventuali vendite verso soggetti esterni alla categoria, al reparto o al contesto autorizzato devono essere valutate preventivamente dai soci gestori e annotate con particolare attenzione nel registro vendite."
+          },
+          {
+            "type": "paragraph",
+            "text": "6.1 Listino indicativo"
+          },
+          {
+            "type": "table",
+            "rows": [
+              [
+                "Voce",
+                "Importo",
+                "Destinazione",
+                "Note"
+              ],
+              [
+                "Costo indicativo acquisto patch",
+                "4,00 euro",
+                "Uscita fondo",
+                "Da aggiornare con costo effettivo e spedizione"
+              ],
+              [
+                "Prezzo indicativo vendita patch",
+                "10,00 euro",
+                "Entrata fondo",
+                "Prezzo modificabile previa comunicazione"
+              ],
+              [
+                "Margine teorico unitario",
+                "6,00 euro",
+                "Fondo comune",
+                "Non distribuibile ai componenti"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "7. Clausole di tutela dei soci gestori",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "I soci gestori operano esclusivamente quali incaricati del Calottino e non a titolo personale."
+          },
+          {
+            "type": "paragraph",
+            "text": "I soci gestori non percepiscono compensi, utili, provvigioni o vantaggi economici personali per la gestione del fondo, per l’acquisto del materiale o per la vendita delle patch/toppe."
+          },
+          {
+            "type": "paragraph",
+            "text": "Ogni somma incassata a titolo di quota, vendita, contributo o rimborso deve essere registrata nel rendiconto del fondo comune e destinata esclusivamente alle finalità approvate dai componenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "I soci gestori non possono assumere obbligazioni, effettuare ordini o sostenere spese superiori alla disponibilità del fondo, salvo preventiva approvazione dei componenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "Eventuali anticipi personali possono essere effettuati solo se necessari, preventivamente comunicati e successivamente rimborsati esclusivamente se documentati."
+          },
+          {
+            "type": "paragraph",
+            "text": "Le spese, gli acquisti e i rimborsi devono essere supportati, ove possibile, da ricevute, fatture, screenshot, estratti pagamento o altra documentazione idonea."
+          },
+          {
+            "type": "paragraph",
+            "text": "La firma del presente regolamento da parte dei componenti ha valore di presa d’atto e approvazione delle modalità di gestione del fondo, della destinazione delle somme raccolte e dell’incarico conferito ai soci gestori."
+          },
+          {
+            "type": "paragraph",
+            "text": "Resta fermo che i soci gestori devono operare con diligenza, trasparenza, prudenza e nel rispetto delle norme, direttive e disposizioni applicabili al contesto di appartenenza."
+          },
+          {
+            "type": "table",
+            "rows": [
+              [
+                "Formula di tutela consigliata: “Tutte le somme raccolte sono fondo comune del Calottino. Nessuna somma può essere considerata reddito, utile o disponibilità personale dei soci gestori, salvo rimborso di spese documentate e approvate.”"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "8. Gestione contabile e rendicontazione",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "La contabilità del Calottino è gestita dai soci gestori mediante registro digitale, preferibilmente in formato Excel condiviso."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il registro deve contenere almeno: elenco componenti, stato pagamento quota iniziale, acquisti patch/toppe, vendite patch/toppe, giacenza di magazzino, spese sostenute, saldo cassa, eventuali crediti o debiti, ricevute e prove di pagamento disponibili."
+          },
+          {
+            "type": "paragraph",
+            "text": "Ogni componente ha diritto di consultare la contabilità del Calottino."
+          },
+          {
+            "type": "paragraph",
+            "text": "I soci gestori predispongono un rendiconto periodico almeno ogni quattro mesi oppure ogni volta che vi siano movimenti rilevanti di cassa."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il rendiconto può essere trasmesso tramite gruppo Telegram/WhatsApp, email o altro canale condiviso."
+          }
+        ]
+      },
+      {
+        "title": "9. Modalità di pagamento",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Le quote, i contributi e i pagamenti relativi alle patch/toppe possono essere raccolti mediante PayPal Colletta, PayPal pagamento personale, Satispay, bonifico, contanti o altro metodo concordato."
+          },
+          {
+            "type": "paragraph",
+            "text": "Ogni versamento deve essere accompagnato da causale chiara."
+          },
+          {
+            "type": "paragraph",
+            "text": "Esempi di causale: “Quota iniziale Calottino Avionici - Nome Cognome”; “Acquisto patch categoria - n. 1 - Nome Cognome”; “Acquisto patch categoria - n. 2 - Nome Cognome”."
+          },
+          {
+            "type": "paragraph",
+            "text": "I pagamenti in contanti devono essere registrati tempestivamente nel file di contabilità, indicando data, soggetto versante, importo, causale e socio gestore che ha ricevuto la somma."
+          },
+          {
+            "type": "paragraph",
+            "text": "Per quanto possibile, le somme del Calottino devono essere tenute separate dalle disponibilità personali del singolo gestore e sempre riconciliate con il registro contabile."
+          }
+        ]
+      },
+      {
+        "title": "10. Spese ordinarie",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Sono considerate spese ordinarie del Calottino: acquisto patch/toppe di categoria; acquisto crest, litografie, penne, targhe o altri oggetti rappresentativi; spese per internet, Wi-Fi o servizi utili all’ufficio; acquisto di materiale utile alla categoria o all’ufficio; organizzazione di pranzi, cene o momenti conviviali; regali per eventi personali dei componenti; piccoli rimborsi documentati; telegrammi, biglietti, stampe, cornici o materiali celebrativi."
+          },
+          {
+            "type": "paragraph",
+            "text": "Le spese ordinarie possono essere sostenute dai soci gestori se compatibili con la disponibilità del fondo e coerenti con le finalità del Calottino."
+          }
+        ]
+      },
+      {
+        "title": "11. Spese straordinarie",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Sono considerate spese straordinarie: spese non previste dal regolamento; spese di importo elevato rispetto alla disponibilità del fondo; acquisti durevoli per l’ufficio; attivazione di servizi ricorrenti; iniziative che comportano impegni economici futuri."
+          },
+          {
+            "type": "paragraph",
+            "text": "Le spese straordinarie devono essere preventivamente comunicate ai componenti e approvate dalla maggioranza dei componenti aderenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "Per le spese ricorrenti, come internet o Wi-Fi, devono essere indicati chiaramente costo mensile, intestatario del contratto, durata, modalità di pagamento, eventuale disdetta e copertura tramite fondo comune."
+          }
+        ]
+      },
+      {
+        "title": "12. Regali, ricorrenze e telegrammi",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Il Calottino può destinare parte del fondo comune all’acquisto di regali, pensieri simbolici, telegrammi, biglietti o comunicazioni formali in occasione di eventi significativi riguardanti i componenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "I regali e le comunicazioni sono subordinati alla disponibilità del fondo e devono essere coerenti con lo spirito di categoria."
+          },
+          {
+            "type": "paragraph",
+            "text": "Per il matrimonio di un componente può essere prevista una busta regalo con budget definito dal presente regolamento o, se ritenuto opportuno, una partecipazione volontaria aggiuntiva dei componenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "Per la nascita di un figlio o di una figlia può essere previsto un buono Amazon o altro regalo utile."
+          },
+          {
+            "type": "paragraph",
+            "text": "Per il conseguimento della laurea può essere prevista una penna personalizzata, una targa o altro oggetto simbolico."
+          },
+          {
+            "type": "paragraph",
+            "text": "Per lutti familiari stretti o eventi di particolare rilievo possono essere inviati telegrammi, messaggi formali, biglietti o, se deliberato, omaggi floreali."
+          },
+          {
+            "type": "paragraph",
+            "text": "12.1 Tabella regali proposta"
+          },
+          {
+            "type": "table",
+            "rows": [
+              [
+                "Evento",
+                "Regalo previsto",
+                "Budget indicativo",
+                "Note"
+              ],
+              [
+                "Matrimonio",
+                "Busta regalo",
+                "100-150 euro",
+                "Possibile partecipazione volontaria extra"
+              ],
+              [
+                "Nascita figlio/a",
+                "Buono Amazon o regalo utile",
+                "50-75 euro",
+                "Eventuale telegramma/biglietto"
+              ],
+              [
+                "Laurea",
+                "Penna personalizzata, targa o regalo simbolico",
+                "40-60 euro",
+                "Da scegliere in base al caso"
+              ],
+              [
+                "Trasferimento dopo almeno 1 anno",
+                "Litografia di categoria",
+                "Costo effettivo",
+                "Subordinata alla disponibilità del fondo"
+              ],
+              [
+                "Trasferimento dopo almeno 2 anni",
+                "Crest di categoria ed eventuale litografia",
+                "Costo effettivo",
+                "Subordinato alla disponibilità del fondo"
+              ],
+              [
+                "Lutto familiare stretto",
+                "Telegramma, messaggio formale, biglietto o fiori",
+                "0-10 euro",
+                "Da valutare con sensibilità"
+              ],
+              [
+                "Evento non previsto",
+                "Da valutare caso per caso",
+                "Da approvare",
+                "Decisione dei soci gestori o del gruppo"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "13. Trasferimento o uscita dal Calottino",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "In caso di trasferimento, cambio incarico o uscita dalla categoria, il componente perde automaticamente i diritti connessi alla partecipazione ordinaria al Calottino, salvo diversa decisione dei componenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "Le quote già versate non sono rimborsabili, salvo diversa decisione motivata dei componenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "In caso di trasferimento dopo almeno un anno di permanenza, è prevista la consegna di una litografia di categoria, se disponibile e compatibile con il fondo."
+          },
+          {
+            "type": "paragraph",
+            "text": "In caso di trasferimento dopo almeno due anni di permanenza, è prevista la consegna di un crest di categoria, eventualmente accompagnato da litografia, se disponibile e compatibile con il fondo."
+          },
+          {
+            "type": "paragraph",
+            "text": "I riconoscimenti sono subordinati alla disponibilità economica del fondo, alla presenza effettiva del materiale e alla valutazione dei soci gestori."
+          }
+        ]
+      },
+      {
+        "title": "14. Comunicazioni interne",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Le comunicazioni ordinarie relative al Calottino possono avvenire tramite gruppo Telegram/WhatsApp, email o altro canale condiviso."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il gruppo Telegram/WhatsApp può essere utilizzato per comunicare quote, acquisti, vendite, spese, rendiconti, proposte, eventi e iniziative di categoria."
+          },
+          {
+            "type": "paragraph",
+            "text": "Per eventi formali o particolarmente significativi, i soci gestori possono predisporre telegrammi, messaggi ufficiali, biglietti o comunicazioni scritte a nome dei componenti aderenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "Le decisioni più rilevanti, soprattutto quelle economiche, devono essere riepilogate in forma scritta e conservate insieme alla contabilità."
+          }
+        ]
+      },
+      {
+        "title": "15. Compiti dei soci gestori",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "I soci gestori hanno il compito di gestire responsabilmente il fondo del Calottino; aggiornare il registro digitale della contabilità; conservare ricevute, fatture e prove di pagamento; aggiornare il magazzino patch/toppe; proporre nuovi ordini di materiale; gestire la vendita delle patch/toppe; ricercare fornitori convenienti e affidabili; proporre aggiornamenti dei prezzi; predisporre il rendiconto periodico; organizzare, se richiesto, pranzi o attività di categoria; curare l’acquisto dei regali previsti; comunicare eventuali criticità economiche; effettuare il passaggio di consegne ai nuovi gestori."
+          },
+          {
+            "type": "paragraph",
+            "text": "I soci gestori devono operare con criteri di trasparenza, prudenza, tracciabilità e condivisione delle decisioni rilevanti."
+          }
+        ]
+      },
+      {
+        "title": "16. Trasparenza e controllo",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "La gestione del fondo deve essere trasparente."
+          },
+          {
+            "type": "paragraph",
+            "text": "Ogni componente può chiedere chiarimenti su saldo cassa, acquisti effettuati, vendite patch/toppe, spese sostenute, disponibilità di magazzino e decisioni di spesa."
+          },
+          {
+            "type": "paragraph",
+            "text": "Eventuali contestazioni o richieste di chiarimento devono essere rivolte ai soci gestori, che provvederanno a fornire risposta entro tempi ragionevoli."
+          },
+          {
+            "type": "paragraph",
+            "text": "Almeno un componente diverso dal referente principale dovrebbe poter visionare periodicamente i registri, così da garantire un controllo minimo incrociato."
+          }
+        ]
+      },
+      {
+        "title": "17. Modifiche al regolamento",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Il presente regolamento può essere modificato in qualsiasi momento su proposta dei soci gestori o di uno o più componenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "Le modifiche devono essere comunicate a tutti i componenti e approvate dalla maggioranza dei componenti aderenti."
+          },
+          {
+            "type": "paragraph",
+            "text": "Le modifiche più importanti, come variazione quote, prezzi patch/toppe, regali, criteri di spesa, modalità di rendicontazione o criteri di trasferimento, devono essere riportate nel regolamento aggiornato."
+          }
+        ]
+      },
+      {
+        "title": "18. Scioglimento del fondo",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "In caso di scioglimento del Calottino, trasferimento della maggioranza dei componenti o cessazione dell’attività, il fondo residuo dovrà essere destinato a una finalità comune, coerente con lo spirito del Calottino."
+          },
+          {
+            "type": "paragraph",
+            "text": "A titolo esemplificativo, il fondo residuo potrà essere destinato a pranzo o cena finale di categoria, acquisto di materiale per l’ufficio, acquisto di crest, litografia o ricordo comune, altra destinazione approvata dalla maggioranza."
+          },
+          {
+            "type": "paragraph",
+            "text": "Il fondo residuo non può essere distribuito ai singoli componenti come utile personale."
+          },
+          {
+            "type": "paragraph",
+            "text": "Allegato A - Dotazione iniziale"
+          },
+          {
+            "type": "paragraph",
+            "text": "Ai componenti aderenti spettano n. 2 patch/toppe di categoria comprese nella quota iniziale di 25,00 euro."
+          },
+          {
+            "type": "paragraph",
+            "text": "La consegna avviene dopo il versamento della quota iniziale e compatibilmente con la disponibilità del materiale."
+          },
+          {
+            "type": "paragraph",
+            "text": "Eventuale materiale aggiuntivo potrà essere deliberato dai soci gestori in base alla disponibilità del fondo."
+          },
+          {
+            "type": "paragraph",
+            "text": "Allegato B - Registro minimo da mantenere"
+          },
+          {
+            "type": "table",
+            "rows": [
+              [
+                "Area",
+                "Dati minimi da registrare",
+                "Documentazione consigliata"
+              ],
+              [
+                "Quote",
+                "Nome componente, data, importo, metodo pagamento, stato quota",
+                "Screenshot pagamento, ricevuta o nota contanti"
+              ],
+              [
+                "Acquisti patch/toppe",
+                "Data, fornitore, quantità, costo unitario, spedizione, costo totale, stato pagamento",
+                "Fattura, ricevuta, conferma ordine, prova pagamento"
+              ],
+              [
+                "Vendite patch/toppe",
+                "Data, acquirente, quantità, prezzo unitario, totale, metodo pagamento, stato consegna",
+                "Screenshot pagamento, ricevuta o registro contanti"
+              ],
+              [
+                "Spese categoria",
+                "Data, categoria spesa, descrizione, importo, autorizzazione, beneficiario",
+                "Ricevuta, fattura, screenshot, scontrino"
+              ],
+              [
+                "Magazzino",
+                "Patch acquistate, patch consegnate, patch vendute, giacenza residua",
+                "Inventario aggiornato e riconciliato"
+              ],
+              [
+                "Cassa",
+                "Entrate, uscite, saldo disponibile, eventuali anticipi personali e rimborsi",
+                "Rendiconto periodico condiviso"
+              ]
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Allegato C - Schema verbale di approvazione"
+          },
+          {
+            "type": "paragraph",
+            "text": "In data ____ / ____ / ______, i componenti della Categoria Avionici approvano il presente Regolamento del Calottino di Categoria Avionici, prendono atto delle finalità del fondo comune, delle modalità di versamento delle quote, della produzione, acquisto e vendita delle patch/toppe, dei criteri di destinazione dei ricavi, delle regole di rendicontazione e della nomina dei soci gestori."
+          },
+          {
+            "type": "paragraph",
+            "text": "Soci gestori nominati:"
+          },
+          {
+            "type": "paragraph",
+            "text": "Referente / Tesoriere: ___________________________________________"
+          },
+          {
+            "type": "paragraph",
+            "text": "Vice gestore: ___________________________________________________"
+          },
+          {
+            "type": "paragraph",
+            "text": "Controllore / Rendicontatore: ____________________________________"
+          },
+          {
+            "type": "paragraph",
+            "text": "Allegato D - Firme dei componenti aderenti"
+          },
+          {
+            "type": "table",
+            "rows": [
+              [
+                "N.",
+                "Cognome e Nome",
+                "Data adesione",
+                "Firma"
+              ],
+              [
+                "1",
+                "",
+                "",
+                ""
+              ],
+              [
+                "2",
+                "",
+                "",
+                ""
+              ],
+              [
+                "3",
+                "",
+                "",
+                ""
+              ],
+              [
+                "4",
+                "",
+                "",
+                ""
+              ],
+              [
+                "5",
+                "",
+                "",
+                ""
+              ],
+              [
+                "6",
+                "",
+                "",
+                ""
+              ],
+              [
+                "7",
+                "",
+                "",
+                ""
+              ],
+              [
+                "8",
+                "",
+                "",
+                ""
+              ],
+              [
+                "9",
+                "",
+                "",
+                ""
+              ],
+              [
+                "10",
+                "",
+                "",
+                ""
+              ],
+              [
+                "11",
+                "",
+                "",
+                ""
+              ],
+              [
+                "12",
+                "",
+                "",
+                ""
+              ],
+              [
+                "13",
+                "",
+                "",
+                ""
+              ],
+              [
+                "14",
+                "",
+                "",
+                ""
+              ],
+              [
+                "15",
+                "",
+                "",
+                ""
+              ]
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Allegato E - Clausola finale consigliata"
+          },
+          {
+            "type": "paragraph",
+            "text": "I componenti dichiarano di aver letto e compreso il presente regolamento e di accettare che il fondo sia gestito dai soci gestori nominati esclusivamente per finalità comuni di categoria. Ogni ricavo derivante da quote, contributi, vendite di patch/toppe o altra iniziativa resta vincolato alle finalità del Calottino e non può essere distribuito a titolo personale."
+          }
+        ]
+      }
+    ],
+    "sectionCount": 19
+  }
+}
