@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-16T14:09:43.572545+00:00",
+  "generatedAt": "2026-06-16T15:59:55.188067+00:00",
   "sources": {
     "excel": {
       "file": "calottino_categoria_gestione.xlsx",
-      "modifiedAt": "2026-06-16T15:46:52.839569"
+      "modifiedAt": "2026-06-16T17:58:02.646938"
     },
     "statute": {
       "file": "statuto_calottino_categoria_avionici.docx",
@@ -14,27 +14,27 @@
     "workbookTitle": "Dashboard calottino di categoria",
     "workbookSubtitle": "Gestione quote, patch, magazzino, ricavi, cassa e spese di categoria",
     "summary": {
-      "cashAvailable": 175.0,
-      "duesCollected": 175.0,
+      "cashAvailable": -175.0,
+      "duesCollected": 445.0,
       "patchRevenue": 0.0,
-      "patchPurchaseCost": 0.0,
-      "categoryExpenses": 0.0,
+      "patchPurchaseCost": 540.0,
+      "categoryExpenses": 80.0,
       "patchGrossProfit": 0,
-      "patchPurchased": 0.0,
-      "patchSold": 0.0,
-      "patchAvailable": 0.0,
-      "breakEvenPatches": 0.0,
-      "patchUnitMargin": 6.0,
+      "patchPurchased": 200.0,
+      "patchSold": 14.0,
+      "patchAvailable": 186.0,
+      "breakEvenPatches": 36.0,
+      "patchUnitMargin": 12.3,
       "membersTotal": 15,
-      "membersPaid": 7,
+      "membersPaid": 8,
       "membersPartial": 0,
-      "membersOpen": 8,
+      "membersOpen": 7,
       "duesExpected": 375.0,
-      "duesRemaining": 200.0,
-      "duesCompletionRate": 46.7,
-      "purchasesCount": 0,
-      "salesCount": 0,
-      "expensesCount": 0
+      "duesRemaining": 0,
+      "duesCompletionRate": 118.7,
+      "purchasesCount": 1,
+      "salesCount": 7,
+      "expensesCount": 1
     },
     "parameters": {
       "title": "Parametri principali del calottino",
@@ -60,19 +60,19 @@
         },
         {
           "Voce": "Costo unitario patch",
-          "Valore": 4,
+          "Valore": 2.7,
           "Unità": "€",
           "Note": "Prezzo pagato al fornitore per ogni patch"
         },
         {
           "Voce": "Prezzo rivendita patch",
-          "Valore": 10,
+          "Valore": 15,
           "Unità": "€",
           "Note": "Prezzo di vendita previsto per ogni patch"
         },
         {
           "Voce": "Margine unitario patch",
-          "Valore": 6,
+          "Valore": 12.3,
           "Unità": "€",
           "Note": "Calcolato automaticamente: prezzo vendita - costo acquisto"
         },
@@ -109,11 +109,11 @@
           "ID": 1,
           "Nome / Cognome": "Capodanno",
           "Quota dovuta": 25,
-          "Quota pagata": 0,
-          "Saldo": -25,
-          "Stato": "Da pagare",
-          "Data pagamento": null,
-          "Metodo": null,
+          "Quota pagata": 270,
+          "Saldo": 245,
+          "Stato": "Pagata",
+          "Data pagamento": "16/06/2026",
+          "Metodo": "PayPal",
           "Note": null
         },
         {
@@ -286,7 +286,19 @@
         "Stato pagamento",
         "Note"
       ],
-      "rows": []
+      "rows": [
+        {
+          "Data": "16/06/2026",
+          "Fornitore": "Capodanno",
+          "Lotto / Descrizione": "Primo Lotto",
+          "Quantità": 200,
+          "Costo unitario": 2.7,
+          "Costo totale": 540,
+          "Pagato da": "Capodanno",
+          "Stato pagamento": "Pagato",
+          "Note": "Soldi da restituire a Mimmo"
+        }
+      ]
     },
     "sales": {
       "title": "Vendite patch / ricavi",
@@ -304,7 +316,99 @@
         "Metodo",
         "Note"
       ],
-      "rows": []
+      "rows": [
+        {
+          "Data": "16/06/2026",
+          "Acquirente": "Capodanno",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 15,
+          "Ricavo": 0,
+          "Costo stimato": 5.4,
+          "Utile lordo": -5.4,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "Data": "16/06/2026",
+          "Acquirente": "Zubenko",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 15,
+          "Ricavo": 0,
+          "Costo stimato": 5.4,
+          "Utile lordo": -5.4,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "Data": "16/06/2026",
+          "Acquirente": "Pertosa",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 15,
+          "Ricavo": 0,
+          "Costo stimato": 5.4,
+          "Utile lordo": -5.4,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "Data": "16/06/2026",
+          "Acquirente": "Ottaiano",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 15,
+          "Ricavo": 0,
+          "Costo stimato": 5.4,
+          "Utile lordo": -5.4,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "Data": "16/06/2026",
+          "Acquirente": "Palladino",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 15,
+          "Ricavo": 0,
+          "Costo stimato": 5.4,
+          "Utile lordo": -5.4,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "Data": "16/06/2026",
+          "Acquirente": "Murolo",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 15,
+          "Ricavo": 0,
+          "Costo stimato": 5.4,
+          "Utile lordo": -5.4,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null
+        },
+        {
+          "Data": "16/06/2026",
+          "Acquirente": "Muto",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 15,
+          "Ricavo": 0,
+          "Costo stimato": 5.4,
+          "Utile lordo": -5.4,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null
+        }
+      ]
     },
     "expenses": {
       "title": "Spese di categoria",
@@ -319,7 +423,18 @@
         "Approvata?",
         "Note"
       ],
-      "rows": []
+      "rows": [
+        {
+          "Data": "16/06/2026",
+          "Categoria": "Patch/acquisti",
+          "Descrizione": "Stampo Patch di Categoria",
+          "Importo": 80,
+          "Pagato da": "Capodanno",
+          "Metodo": "Bonifico",
+          "Approvata?": "Sì",
+          "Note": null
+        }
+      ]
     },
     "flows": {
       "title": "Flussi principali",
@@ -332,7 +447,7 @@
       "rows": [
         {
           "Voce": "Quote incassate",
-          "Importo": 175,
+          "Importo": 445,
           "Segno": "Entrata",
           "Note": "Quote iniziali pagate dai 15 componenti"
         },
@@ -344,19 +459,19 @@
         },
         {
           "Voce": "Costo acquisti patch",
-          "Importo": 0,
+          "Importo": 540,
           "Segno": "Uscita",
           "Note": "Acquisti patch registrati come pagati/parziali"
         },
         {
           "Voce": "Spese categoria",
-          "Importo": 0,
+          "Importo": 80,
           "Segno": "Uscita",
           "Note": "Spese approvate per ufficio, pranzi, eventi"
         },
         {
           "Voce": "Cassa disponibile stimata",
-          "Importo": 175,
+          "Importo": -175,
           "Segno": "Saldo",
           "Note": "Entrate - uscite"
         }
@@ -373,31 +488,31 @@
       "rows": [
         {
           "Voce": "Patch acquistate",
-          "Valore": 0,
+          "Valore": 200,
           "Unità": "pezzi",
           "Note": "Totale inserito in Acquisti_Patch"
         },
         {
           "Voce": "Patch vendute",
-          "Valore": 0,
+          "Valore": 14,
           "Unità": "pezzi",
           "Note": "Totale inserito in Vendite_Patch"
         },
         {
           "Voce": "Patch disponibili",
-          "Valore": 0,
+          "Valore": 186,
           "Unità": "pezzi",
           "Note": "Acquistate - vendute"
         },
         {
           "Voce": "Break-even acquisti",
-          "Valore": 0,
+          "Valore": 36,
           "Unità": "pezzi",
           "Note": "Patch da vendere per coprire il costo acquisti"
         },
         {
           "Voce": "Margine unitario",
-          "Valore": 6,
+          "Valore": 12.3,
           "Unità": "€",
           "Note": "Prezzo rivendita - costo unitario"
         }

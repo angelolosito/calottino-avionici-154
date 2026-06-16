@@ -14,23 +14,21 @@ Poi apri `http://localhost:8000`.
 
 ## Aggiornamento dati
 
-Modifica `calottino_categoria_gestione.xlsx`, poi esegui:
+Metodo semplice su Mac:
 
-```bash
-python3 scripts/build_site_data.py
-```
+1. Salva il file `calottino_categoria_gestione.xlsx`.
+2. Fai doppio clic su `aggiorna_sito.command`.
+3. Se il Terminale non riesce a pubblicare da solo, apri GitHub Desktop e premi `Push origin`.
+4. Dopo 1-2 minuti aggiorna la pagina del sito.
 
-Il sito mantiene gli stessi file e lo stesso link. Al refresh della pagina caricherà il nuovo `data/site-data.json` pubblicato.
+Il link resta sempre:
 
-Su Mac puoi anche fare doppio clic su `aggiorna_sito.command`.
+`https://angelolosito.github.io/calottino-avionici-154/`
+
+Il comando rigenera `docs/data/site-data.json`, crea il commit e prova a pubblicare online.
 
 ## Pubblicazione gratis con link stabile
 
-La soluzione più semplice è GitHub Pages:
-
-1. Crea un repository GitHub pubblico.
-2. Carica questa cartella nel repository.
-3. In GitHub abilita Pages usando GitHub Actions oppure la cartella `docs/`.
-4. Il link sarà del tipo `https://TUO-UTENTE.github.io/NOME-REPOSITORY/`.
+Il sito è pubblicato gratuitamente con GitHub Pages dalla cartella `docs/`.
 
 Finché il repository e l'utente GitHub restano gli stessi, il link non cambia.
