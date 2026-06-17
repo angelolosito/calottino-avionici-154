@@ -45,8 +45,8 @@ else
   PYTHON="$VENV_PY"
 fi
 
-echo "Leggo l'Excel e rigenero i dati del sito..."
-"$PYTHON" scripts/build_site_data.py || {
+echo "Leggo l'Excel e preparo il JSON del sito..."
+"$PYTHON" scripts/excel_to_json.py || {
   echo
   echo "Errore: aggiornamento dati non riuscito."
   pause
@@ -55,7 +55,7 @@ echo "Leggo l'Excel e rigenero i dati del sito..."
 
 echo
 echo "Preparo le modifiche per GitHub..."
-git add calottino_categoria_gestione.xlsx docs/data/site-data.json docs/assets/logo-patch.jpg
+git add calottino_categoria_gestione.xlsx docs/data.json
 
 if git diff --cached --quiet; then
   echo "Nessuna modifica da pubblicare."
@@ -72,13 +72,13 @@ echo
 echo "Provo a pubblicare online..."
 if git push origin main; then
   echo
-  echo "Fatto. Il sito online si aggiornera' entro circa 1-2 minuti."
+  echo "Fatto. GitHub Actions convertira' l'Excel e aggiornera' il sito entro circa 1-2 minuti."
   echo "Link: https://angelolosito.github.io/calottino-avionici-154/"
 else
   echo
-  echo "Non riesco a pubblicare automaticamente da Terminale."
-  echo "Va bene: apri GitHub Desktop e premi 'Push origin'."
-  echo "Dopo 1-2 minuti il link sara' aggiornato:"
+  echo "Non riesco a pubblicare: probabilmente manca internet o GitHub non e' raggiungibile."
+  echo "La modifica e' pronta sul Mac. Appena torna internet, apri GitHub Desktop e premi 'Push origin'."
+  echo "Dopo il push, GitHub Actions aggiornera' il sito in circa 1-2 minuti:"
   echo "https://angelolosito.github.io/calottino-avionici-154/"
   open -a "GitHub Desktop" . >/dev/null 2>&1 || true
 fi

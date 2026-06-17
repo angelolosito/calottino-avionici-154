@@ -1,4 +1,5 @@
-const DATA_URL = `data/site-data.json?v=${Date.now()}`;
+const DATA_URL = `data.json?v=${Date.now()}`;
+const CACHE_KEY = "calottino-site-data";
 
 let siteData;
 let memberRows = [];
@@ -16,19 +17,82 @@ const integer = new Intl.NumberFormat("it-IT", {
 document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
+  document.querySelector("#reloadDataButton")?.addEventListener("click", () => window.location.reload());
+
   try {
     const response = await fetch(DATA_URL, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     siteData = await response.json();
+    saveCachedData(siteData);
     memberRows = siteData.excel.people.rows;
+    hideDataBanner();
     renderAll();
     bindEvents();
   } catch (error) {
-    document.body.insertAdjacentHTML(
-      "afterbegin",
-      `<div class="empty-state">Impossibile caricare i dati del sito: ${escapeHtml(error.message)}</div>`,
+    loadCachedData(error);
+  }
+}
+
+function loadCachedData(error) {
+  const cached = readCachedData();
+  if (!cached) {
+    showDataBanner(
+      "Impossibile caricare i dati. Controlla la connessione e ricarica la pagina quando torna internet.",
+    );
+    return;
+  }
+
+  try {
+    siteData = JSON.parse(cached);
+    memberRows = siteData.excel.people.rows;
+    renderAll();
+    bindEvents();
+    showDataBanner(
+      `Dati online non raggiungibili (${error.message}). Sto mostrando l'ultimo aggiornamento salvato su questo dispositivo.`,
+      "warning",
+    );
+  } catch {
+    clearCachedData();
+    showDataBanner(
+      "Impossibile caricare i dati. Controlla la connessione e ricarica la pagina quando torna internet.",
     );
   }
+}
+
+function saveCachedData(data) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  } catch {
+    // Il sito resta pienamente leggibile anche se il browser blocca la cache locale.
+  }
+}
+
+function readCachedData() {
+  try {
+    return localStorage.getItem(CACHE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function clearCachedData() {
+  try {
+    localStorage.removeItem(CACHE_KEY);
+  } catch {
+    // Nessuna azione necessaria.
+  }
+}
+
+function showDataBanner(message, tone = "error") {
+  const banner = document.querySelector("#dataBanner");
+  banner.hidden = false;
+  banner.className = `data-banner data-banner-${tone}`;
+  banner.querySelector("span").textContent = message;
+}
+
+function hideDataBanner() {
+  const banner = document.querySelector("#dataBanner");
+  banner.hidden = true;
 }
 
 function bindEvents() {
@@ -148,13 +212,21 @@ function renderDataTable(target, rows, columns, emptyText) {
 }
 
 function renderStatute(statute) {
-  document.querySelector("#statuteNotice").textContent = statute.notice || "";
+  const sections = statute?.sections || [];
+  document.querySelector("#statuteNotice").textContent = statute?.notice || "";
 
-  document.querySelector("#statuteIndex").innerHTML = statute.sections
+  if (!sections.length) {
+    document.querySelector("#statuteIndex").innerHTML = "";
+    document.querySelector("#statuteContent").innerHTML =
+      `<div class="empty-state">Statuto non disponibile.</div>`;
+    return;
+  }
+
+  document.querySelector("#statuteIndex").innerHTML = sections
     .map((section, index) => `<a href="#statute-${index}">${escapeHtml(section.title)}</a>`)
     .join("");
 
-  document.querySelector("#statuteContent").innerHTML = statute.sections
+  document.querySelector("#statuteContent").innerHTML = sections
     .map((section, index) => `
       <details class="statute-card" id="statute-${index}" ${index < 3 ? "open" : ""}>
         <summary>${escapeHtml(section.title)}</summary>

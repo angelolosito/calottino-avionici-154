@@ -120,6 +120,61 @@ section,
   outline: none;
 }
 
+.data-banner {
+  position: sticky;
+  top: 76px;
+  z-index: 19;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px clamp(18px, 4vw, 48px);
+  border-bottom: 1px solid rgba(9, 9, 11, 0.12);
+  color: #fff;
+  background: #9a0719;
+  box-shadow: 0 12px 26px rgba(9, 9, 11, 0.16);
+}
+
+.data-banner[hidden] {
+  display: none;
+}
+
+.data-banner-warning {
+  color: var(--ink);
+  background: #fff3d8;
+}
+
+.data-banner strong {
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.data-banner span {
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.data-banner button {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid currentColor;
+  border-radius: var(--radius);
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.data-banner button:hover,
+.data-banner button:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  outline: none;
+}
+
 .hero-section {
   position: relative;
   display: grid;
@@ -660,6 +715,10 @@ tr:last-child td {
     gap: 12px;
   }
 
+  .data-banner {
+    top: 124px;
+  }
+
   .main-nav {
     width: 100%;
     justify-content: flex-start;
@@ -695,6 +754,11 @@ tr:last-child td {
 @media (max-width: 640px) {
   .site-header {
     padding: 10px 16px;
+  }
+
+  .data-banner {
+    top: 116px;
+    grid-template-columns: 1fr;
   }
 
   .brand img {
