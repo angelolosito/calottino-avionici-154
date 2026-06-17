@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-16T15:59:55.188067+00:00",
+  "generatedAt": "2026-06-17T09:06:11.189090+00:00",
   "sources": {
     "excel": {
       "file": "calottino_categoria_gestione.xlsx",
-      "modifiedAt": "2026-06-16T17:58:02.646938"
+      "modifiedAt": "2026-06-17T10:59:06.023521"
     },
     "statute": {
       "file": "statuto_calottino_categoria_avionici.docx",
@@ -14,26 +14,32 @@
     "workbookTitle": "Dashboard calottino di categoria",
     "workbookSubtitle": "Gestione quote, patch, magazzino, ricavi, cassa e spese di categoria",
     "summary": {
-      "cashAvailable": -175.0,
-      "duesCollected": 445.0,
-      "patchRevenue": 0.0,
+      "cashAvailable": -64.0,
+      "duesCollected": 520.0,
+      "patchRevenue": 36.0,
+      "patchRevenueExternal": 0.0,
+      "patchRevenueInternal": 36.0,
       "patchPurchaseCost": 540.0,
       "categoryExpenses": 80.0,
-      "patchGrossProfit": 0,
+      "patchGrossProfit": 27.900000000000002,
       "patchPurchased": 200.0,
-      "patchSold": 14.0,
-      "patchAvailable": 186.0,
+      "patchSold": 16.0,
+      "patchAvailable": 184.0,
       "breakEvenPatches": 36.0,
+      "breakEvenPatchesExternal": 36.0,
+      "breakEvenPatchesInternal": 45.0,
       "patchUnitMargin": 12.3,
+      "patchUnitMarginExternal": 12.3,
+      "patchUnitMarginInternal": 9.3,
       "membersTotal": 15,
-      "membersPaid": 8,
+      "membersPaid": 11,
       "membersPartial": 0,
-      "membersOpen": 7,
+      "membersOpen": 4,
       "duesExpected": 375.0,
       "duesRemaining": 0,
-      "duesCompletionRate": 118.7,
+      "duesCompletionRate": 138.7,
       "purchasesCount": 1,
-      "salesCount": 7,
+      "salesCount": 9,
       "expensesCount": 1
     },
     "parameters": {
@@ -65,16 +71,22 @@
           "Note": "Prezzo pagato al fornitore per ogni patch"
         },
         {
-          "Voce": "Prezzo rivendita patch",
+          "Voce": "Prezzo rivendita patch Esterni",
           "Valore": 15,
           "Unità": "€",
-          "Note": "Prezzo di vendita previsto per ogni patch"
+          "Note": "Prezzo vendita per acquirenti esterni"
         },
         {
-          "Voce": "Margine unitario patch",
+          "Voce": "Prezzo rivendita patch Interni",
+          "Valore": 12,
+          "Unità": "€",
+          "Note": "Prezzo vendita per acquirenti interni"
+        },
+        {
+          "Voce": "Margine unitario patch Esterni",
           "Valore": 12.3,
           "Unità": "€",
-          "Note": "Calcolato automaticamente: prezzo vendita - costo acquisto"
+          "Note": "Calcolato automaticamente: prezzo esterni - costo acquisto"
         },
         {
           "Voce": "Obiettivo fondo minimo",
@@ -87,6 +99,12 @@
           "Valore": 0,
           "Unità": "€",
           "Note": "Facoltativo: utile per stimare i mesi coperti"
+        },
+        {
+          "Voce": "Margine unitario patch Interni",
+          "Valore": 9.3,
+          "Unità": "€",
+          "Note": "Calcolato automaticamente: prezzo interni - costo acquisto"
         }
       ]
     },
@@ -113,7 +131,7 @@
           "Saldo": 245,
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
-          "Metodo": "PayPal",
+          "Metodo": "Contanti",
           "Note": null
         },
         {
@@ -208,11 +226,11 @@
           "ID": 10,
           "Nome / Cognome": "Ottaiano",
           "Quota dovuta": 25,
-          "Quota pagata": 0,
-          "Saldo": -25,
-          "Stato": "Da pagare",
-          "Data pagamento": null,
-          "Metodo": null,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "16/06/2026",
+          "Metodo": "PayPal",
           "Note": null
         },
         {
@@ -241,11 +259,11 @@
           "ID": 13,
           "Nome / Cognome": "Palma",
           "Quota dovuta": 25,
-          "Quota pagata": 0,
-          "Saldo": -25,
-          "Stato": "Da pagare",
-          "Data pagamento": null,
-          "Metodo": null,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "17/06/2026",
+          "Metodo": "Contanti",
           "Note": null
         },
         {
@@ -263,11 +281,11 @@
           "ID": 15,
           "Nome / Cognome": "Torrente",
           "Quota dovuta": 25,
-          "Quota pagata": 0,
-          "Saldo": -25,
-          "Stato": "Da pagare",
-          "Data pagamento": null,
-          "Metodo": null,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "17/06/2026",
+          "Metodo": "PayPal",
           "Note": null
         }
       ]
@@ -289,7 +307,7 @@
       "rows": [
         {
           "Data": "16/06/2026",
-          "Fornitore": "Capodanno",
+          "Fornitore": "Sanarica",
           "Lotto / Descrizione": "Primo Lotto",
           "Quantità": 200,
           "Costo unitario": 2.7,
@@ -324,8 +342,8 @@
           "Quantità": 2,
           "Prezzo unitario": 15,
           "Ricavo": 0,
-          "Costo stimato": 5.4,
-          "Utile lordo": -5.4,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
           "Note": null
@@ -337,8 +355,8 @@
           "Quantità": 2,
           "Prezzo unitario": 15,
           "Ricavo": 0,
-          "Costo stimato": 5.4,
-          "Utile lordo": -5.4,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
           "Note": null
@@ -350,8 +368,8 @@
           "Quantità": 2,
           "Prezzo unitario": 15,
           "Ricavo": 0,
-          "Costo stimato": 5.4,
-          "Utile lordo": -5.4,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
           "Note": null
@@ -363,8 +381,8 @@
           "Quantità": 2,
           "Prezzo unitario": 15,
           "Ricavo": 0,
-          "Costo stimato": 5.4,
-          "Utile lordo": -5.4,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
           "Note": null
@@ -376,8 +394,8 @@
           "Quantità": 2,
           "Prezzo unitario": 15,
           "Ricavo": 0,
-          "Costo stimato": 5.4,
-          "Utile lordo": -5.4,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
           "Note": null
@@ -389,8 +407,8 @@
           "Quantità": 2,
           "Prezzo unitario": 15,
           "Ricavo": 0,
-          "Costo stimato": 5.4,
-          "Utile lordo": -5.4,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
           "Note": null
@@ -399,14 +417,40 @@
           "Data": "16/06/2026",
           "Acquirente": "Muto",
           "Descrizione": "Patch categoria",
-          "Quantità": 2,
+          "Quantità": 1,
           "Prezzo unitario": 15,
           "Ricavo": 0,
-          "Costo stimato": 5.4,
-          "Utile lordo": -5.4,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
           "Note": null
+        },
+        {
+          "Data": "17/06/2026",
+          "Acquirente": "D'Orsi",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 24,
+          "Costo stimato": 5.4,
+          "Utile lordo": 18.6,
+          "Incassato?": "Sì",
+          "Metodo": "Revolut Angelo",
+          "Note": null
+        },
+        {
+          "Data": "17/06/2026",
+          "Acquirente": "De Matola",
+          "Descrizione": "Patch categoria",
+          "Quantità": 1,
+          "Prezzo unitario": 12,
+          "Ricavo": 12,
+          "Costo stimato": 2.7,
+          "Utile lordo": 9.3,
+          "Incassato?": "Sì",
+          "Metodo": "Contanti",
+          "Note": "Mimmo"
         }
       ]
     },
@@ -447,15 +491,15 @@
       "rows": [
         {
           "Voce": "Quote incassate",
-          "Importo": 445,
+          "Importo": 520,
           "Segno": "Entrata",
           "Note": "Quote iniziali pagate dai 15 componenti"
         },
         {
-          "Voce": "Ricavi patch incassati",
-          "Importo": 0,
+          "Voce": "Ricavi patch incassati totali",
+          "Importo": 36,
           "Segno": "Entrata",
-          "Note": "Vendite registrate come incassate"
+          "Note": "Vendite incassate totali: esterni + interni"
         },
         {
           "Voce": "Costo acquisti patch",
@@ -471,9 +515,21 @@
         },
         {
           "Voce": "Cassa disponibile stimata",
-          "Importo": -175,
+          "Importo": -64,
           "Segno": "Saldo",
           "Note": "Entrate - uscite"
+        },
+        {
+          "Voce": "Ricavi patch esterni incassati",
+          "Importo": 0,
+          "Segno": "Entrata",
+          "Note": "Vendite incassate a prezzo esterni (€15)"
+        },
+        {
+          "Voce": "Ricavi patch interni incassati",
+          "Importo": 36,
+          "Segno": "Entrata",
+          "Note": "Vendite incassate a prezzo interni (€12)"
         }
       ]
     },
@@ -494,27 +550,39 @@
         },
         {
           "Voce": "Patch vendute",
-          "Valore": 14,
+          "Valore": 16,
           "Unità": "pezzi",
           "Note": "Totale inserito in Vendite_Patch"
         },
         {
           "Voce": "Patch disponibili",
-          "Valore": 186,
+          "Valore": 184,
           "Unità": "pezzi",
           "Note": "Acquistate - vendute"
         },
         {
-          "Voce": "Break-even acquisti",
+          "Voce": "Break-even acquisti a prezzo esterni",
           "Valore": 36,
           "Unità": "pezzi",
-          "Note": "Patch da vendere per coprire il costo acquisti"
+          "Note": "Patch da vendere a prezzo esterni per coprire il costo acquisti"
         },
         {
-          "Voce": "Margine unitario",
+          "Voce": "Margine unitario esterni",
           "Valore": 12.3,
           "Unità": "€",
-          "Note": "Prezzo rivendita - costo unitario"
+          "Note": "Prezzo esterni - costo unitario"
+        },
+        {
+          "Voce": "Break-even acquisti a prezzo interni",
+          "Valore": 45,
+          "Unità": "pezzi",
+          "Note": "Patch da vendere a prezzo interni per coprire il costo acquisti"
+        },
+        {
+          "Voce": "Margine unitario interni",
+          "Valore": 9.3,
+          "Unità": "€",
+          "Note": "Prezzo interni - costo unitario"
         }
       ]
     },

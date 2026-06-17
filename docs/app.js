@@ -6,7 +6,7 @@ let memberRows = [];
 const euro = new Intl.NumberFormat("it-IT", {
   style: "currency",
   currency: "EUR",
-  maximumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 
 const integer = new Intl.NumberFormat("it-IT", {
@@ -56,7 +56,7 @@ function renderAll() {
   renderFlowList(excel.flows.rows);
   renderInventoryList(excel.inventory.rows);
   renderPeople(memberRows);
-  renderDataTable("#salesTable", excel.sales.rows, ["Data", "Acquirente", "Descrizione", "Quantità", "Prezzo unitario", "Ricavo", "Stato consegna"], "Nessuna vendita registrata.");
+  renderDataTable("#salesTable", excel.sales.rows, ["Data", "Acquirente", "Descrizione", "Quantità", "Prezzo unitario", "Ricavo", "Utile lordo", "Incassato?", "Metodo", "Note"], "Nessuna vendita registrata.");
   renderDataTable("#purchasesTable", excel.purchases.rows, ["Data", "Fornitore", "Lotto / Descrizione", "Quantità", "Costo unitario", "Costo totale", "Stato pagamento"], "Nessun acquisto registrato.");
   renderDataTable("#expensesTable", excel.expenses.rows, ["Data", "Categoria", "Descrizione", "Importo", "Pagato da", "Metodo", "Approvata?", "Note"], "Nessuna spesa registrata.");
   renderDataTable("#parametersTable", excel.parameters.rows, ["Voce", "Valore", "Unità", "Note"], "Nessun parametro disponibile.");
@@ -67,8 +67,9 @@ function renderKpis(summary) {
   const cards = [
     ["Cassa disponibile", euro.format(summary.cashAvailable), "Saldo stimato da entrate e uscite"],
     ["Quote incassate", euro.format(summary.duesCollected), `${summary.membersPaid}/${summary.membersTotal} persone in regola`],
+    ["Ricavi patch", euro.format(summary.patchRevenue), `${euro.format(summary.patchRevenueExternal || 0)} esterni, ${euro.format(summary.patchRevenueInternal || 0)} interni`],
     ["Patch disponibili", integer.format(summary.patchAvailable), `${integer.format(summary.patchPurchased)} acquistate, ${integer.format(summary.patchSold)} vendute`],
-    ["Margine unitario", euro.format(summary.patchUnitMargin), "Prezzo rivendita meno costo unitario"],
+    ["Margini unitari", `${euro.format(summary.patchUnitMarginExternal || summary.patchUnitMargin || 0)} / ${euro.format(summary.patchUnitMarginInternal || 0)}`, "Esterni / interni"],
   ];
 
   document.querySelector("#kpiGrid").innerHTML = cards
@@ -192,10 +193,10 @@ function formatCell(value, column, row = {}) {
   if (column === "Valore") {
     return row.Unità === "€" ? euro.format(Number(value) || 0) : escapeHtml(String(value));
   }
-  if (["Quota dovuta", "Quota pagata", "Saldo", "Prezzo unitario", "Ricavo", "Costo unitario", "Costo totale", "Importo"].includes(column)) {
+  if (["Quota dovuta", "Quota pagata", "Saldo", "Prezzo unitario", "Ricavo", "Costo unitario", "Costo totale", "Importo", "Utile lordo"].includes(column)) {
     return euro.format(Number(value) || 0);
   }
-  if (column === "Stato" || column === "Stato pagamento" || column === "Stato consegna" || column === "Approvata?") {
+  if (column === "Stato" || column === "Stato pagamento" || column === "Stato consegna" || column === "Approvata?" || column === "Incassato?") {
     return `<span class="status ${statusClass(value)}">${escapeHtml(String(value))}</span>`;
   }
   return escapeHtml(String(value));

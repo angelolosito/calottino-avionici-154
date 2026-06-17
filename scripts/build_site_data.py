@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import sys
 from datetime import date, datetime, timezone
@@ -122,11 +123,61 @@ def table_range(
     }
 
 
+def table_until_blank(
+    sheet: Any,
+    title_cell: str,
+    header_row: int,
+    first_col: int,
+    last_col: int,
+    data_start: int,
+) -> dict[str, Any]:
+    headers = [
+        str(clean_value(sheet.cell(header_row, col).value))
+        for col in range(first_col, last_col + 1)
+        if present(clean_value(sheet.cell(header_row, col).value))
+    ]
+    rows: list[dict[str, Any]] = []
+
+    for row_idx in range(data_start, sheet.max_row + 1):
+        row: dict[str, Any] = {}
+        for offset, header in enumerate(headers):
+            row[header] = clean_value(sheet.cell(row_idx, first_col + offset).value)
+        if not any(present(value) for value in row.values()):
+            break
+        rows.append(row)
+
+    return {
+        "title": clean_value(sheet[title_cell].value),
+        "headers": headers,
+        "rows": rows,
+    }
+
+
 def lookup(rows: list[dict[str, Any]], label: str, value_key: str = "Importo") -> Any:
     for row in rows:
         if row.get("Voce") == label:
             return row.get(value_key)
     return None
+
+
+def lookup_any(rows: list[dict[str, Any]], labels: list[str], value_key: str = "Importo") -> Any:
+    for label in labels:
+        value = lookup(rows, label, value_key)
+        if value is not None:
+            return value
+    return None
+
+
+def is_yes(value: Any) -> bool:
+    normalized = str(clean_value(value) or "").casefold()
+    return normalized in {"si", "sì", "yes", "true", "pagata", "pagato", "approvata", "approvato"}
+
+
+def parameter_value(rows: list[dict[str, Any]], label: str) -> float:
+    for row in rows:
+        if row.get("Voce") == label:
+            return number(row.get("Valore"))
+    return 0
 
 
 def read_workbook() -> dict[str, Any]:
@@ -148,7 +199,7 @@ def read_workbook() -> dict[str, Any]:
         workbook,
         "Vendite_Patch",
         header_row=3,
-        required_headers=["Data", "Acquirente", "Quantità", "Ricavo", "Metodo pagamento", "Stato consegna"],
+        required_headers=["Data", "Acquirente", "Quantità", "Ricavo"],
     )
     expenses = table_from_sheet(
         workbook,
@@ -159,10 +210,14 @@ def read_workbook() -> dict[str, Any]:
     parameters = table_from_sheet(workbook, "Parametri", header_row=3, required_headers=["Voce"])
 
     dashboard_sheet = workbook["Dashboard"]
-    flows = table_range(dashboard_sheet, "A13", 14, 1, 4, 15, 19)
-    inventory = table_range(dashboard_sheet, "G13", 14, 7, 10, 15, 19)
+    flows = table_until_blank(dashboard_sheet, "A13", 14, 1, 4, 15)
+    inventory = table_until_blank(dashboard_sheet, "G13", 14, 7, 10, 15)
 
     member_rows = people["rows"]
+    purchase_rows = purchases["rows"]
+    sale_rows = sales["rows"]
+    expense_rows = expenses["rows"]
+    parameter_rows = parameters["rows"]
     paid_members = sum(1 for row in member_rows if row.get("Stato") == "Pagata")
     partial_members = sum(1 for row in member_rows if row.get("Stato") == "Parziale")
     due_total = sum(number(row.get("Quota dovuta")) for row in member_rows)
@@ -171,18 +226,68 @@ def read_workbook() -> dict[str, Any]:
 
     flow_rows = flows["rows"]
     inventory_rows = inventory["rows"]
+    external_price = parameter_value(parameter_rows, "Prezzo rivendita patch Esterni")
+    internal_price = parameter_value(parameter_rows, "Prezzo rivendita patch Interni")
+    external_margin = parameter_value(parameter_rows, "Margine unitario patch Esterni")
+    internal_margin = parameter_value(parameter_rows, "Margine unitario patch Interni")
+
+    patch_purchased = sum(number(row.get("Quantità")) for row in purchase_rows)
+    patch_sold = sum(number(row.get("Quantità")) for row in sale_rows)
+    patch_available = patch_purchased - patch_sold
+    patch_purchase_cost = sum(
+        number(row.get("Costo totale"))
+        for row in purchase_rows
+        if is_yes(row.get("Stato pagamento")) or str(row.get("Stato pagamento") or "").casefold() == "parziale"
+    )
+    approved_expenses = sum(number(row.get("Importo")) for row in expense_rows if is_yes(row.get("Approvata?")))
+    collected_sales = [row for row in sale_rows if is_yes(row.get("Incassato?"))]
+    patch_revenue = sum(number(row.get("Ricavo")) for row in collected_sales)
+    patch_gross_profit = sum(number(row.get("Utile lordo")) for row in collected_sales)
+    patch_revenue_external = sum(
+        number(row.get("Ricavo")) for row in collected_sales if number(row.get("Prezzo unitario")) == external_price
+    )
+    patch_revenue_internal = sum(
+        number(row.get("Ricavo")) for row in collected_sales if number(row.get("Prezzo unitario")) == internal_price
+    )
+    cash_available = paid_total + patch_revenue - patch_purchase_cost - approved_expenses
+
+    break_even_external = number(
+        lookup_any(
+            inventory_rows,
+            ["Break-even acquisti a prezzo esterni", "Break-even patch a prezzo esterni", "Break-even acquisti"],
+            "Valore",
+        )
+    )
+    break_even_internal = number(
+        lookup_any(
+            inventory_rows,
+            ["Break-even acquisti a prezzo interni", "Break-even patch a prezzo interni"],
+            "Valore",
+        )
+    )
+    if not break_even_external and external_price:
+        break_even_external = math.ceil(patch_purchase_cost / external_price)
+    if not break_even_internal and internal_price:
+        break_even_internal = math.ceil(patch_purchase_cost / internal_price)
+
     summary = {
-        "cashAvailable": number(lookup(flow_rows, "Cassa disponibile stimata")),
-        "duesCollected": number(lookup(flow_rows, "Quote incassate")),
-        "patchRevenue": number(lookup(flow_rows, "Ricavi patch incassati")),
-        "patchPurchaseCost": number(lookup(flow_rows, "Costo acquisti patch")),
-        "categoryExpenses": number(lookup(flow_rows, "Spese categoria")),
-        "patchGrossProfit": number(lookup(flow_rows, "Utile lordo patch")),
-        "patchPurchased": number(lookup(inventory_rows, "Patch acquistate", "Valore")),
-        "patchSold": number(lookup(inventory_rows, "Patch vendute", "Valore")),
-        "patchAvailable": number(lookup(inventory_rows, "Patch disponibili", "Valore")),
-        "breakEvenPatches": number(lookup(inventory_rows, "Break-even acquisti", "Valore")),
-        "patchUnitMargin": number(lookup(inventory_rows, "Margine unitario", "Valore")),
+        "cashAvailable": cash_available,
+        "duesCollected": paid_total,
+        "patchRevenue": patch_revenue,
+        "patchRevenueExternal": patch_revenue_external,
+        "patchRevenueInternal": patch_revenue_internal,
+        "patchPurchaseCost": patch_purchase_cost,
+        "categoryExpenses": approved_expenses,
+        "patchGrossProfit": patch_gross_profit,
+        "patchPurchased": patch_purchased,
+        "patchSold": patch_sold,
+        "patchAvailable": patch_available,
+        "breakEvenPatches": break_even_external,
+        "breakEvenPatchesExternal": break_even_external,
+        "breakEvenPatchesInternal": break_even_internal,
+        "patchUnitMargin": external_margin,
+        "patchUnitMarginExternal": external_margin,
+        "patchUnitMarginInternal": internal_margin,
         "membersTotal": len(member_rows),
         "membersPaid": paid_members,
         "membersPartial": partial_members,
@@ -190,9 +295,9 @@ def read_workbook() -> dict[str, Any]:
         "duesExpected": due_total,
         "duesRemaining": remaining_total,
         "duesCompletionRate": round((paid_total / due_total) * 100, 1) if due_total else 0,
-        "purchasesCount": len(purchases["rows"]),
-        "salesCount": len(sales["rows"]),
-        "expensesCount": len(expenses["rows"]),
+        "purchasesCount": len(purchase_rows),
+        "salesCount": len(sale_rows),
+        "expensesCount": len(expense_rows),
     }
 
     return {
