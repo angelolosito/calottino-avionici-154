@@ -129,12 +129,20 @@ function renderAll() {
 
 function renderKpis(summary) {
   const cards = [
-    ["Cassa disponibile", euro.format(summary.cashAvailable), "Saldo stimato da entrate e uscite"],
+    ["Cassa disponibile", euro.format(summary.cashAvailable), "Include eventuali anticipi temporanei"],
     ["Quote incassate", euro.format(summary.duesCollected), `${summary.membersPaid}/${summary.membersTotal} persone in regola`],
     ["Ricavi patch", euro.format(summary.patchRevenue), `${euro.format(summary.patchRevenueExternal || 0)} esterni, ${euro.format(summary.patchRevenueInternal || 0)} interni`],
     ["Patch disponibili", integer.format(summary.patchAvailable), `${integer.format(summary.patchPurchased)} acquistate, ${integer.format(summary.patchSold)} vendute`],
     ["Margini unitari", `${euro.format(summary.patchUnitMarginExternal || summary.patchUnitMargin || 0)} / ${euro.format(summary.patchUnitMarginInternal || 0)}`, "Esterni / interni"],
   ];
+
+  if (summary.advancesOutstanding > 0) {
+    cards.splice(2, 0, [
+      "Anticipi da restituire",
+      euro.format(summary.advancesOutstanding),
+      `${euro.format(summary.advancesReceived || 0)} anticipati, ${euro.format(summary.advancesReimbursed || 0)} rimborsati`,
+    ]);
+  }
 
   document.querySelector("#kpiGrid").innerHTML = cards
     .map(([label, value, note]) => `
@@ -183,7 +191,7 @@ function renderPeople(rows) {
   renderDataTable(
     "#peopleTable",
     rows,
-    ["ID", "Nome / Cognome", "Quota dovuta", "Quota pagata", "Saldo", "Stato", "Data pagamento", "Metodo", "Note"],
+    ["ID", "Nome / Cognome", "Quota dovuta", "Quota pagata", "Anticipo da rimborsare", "Saldo", "Stato", "Data pagamento", "Metodo", "Note"],
     "Nessun componente trovato.",
   );
 }
@@ -265,7 +273,7 @@ function formatCell(value, column, row = {}) {
   if (column === "Valore") {
     return row.Unità === "€" ? euro.format(Number(value) || 0) : escapeHtml(String(value));
   }
-  if (["Quota dovuta", "Quota pagata", "Saldo", "Prezzo unitario", "Ricavo", "Costo unitario", "Costo totale", "Importo", "Utile lordo"].includes(column)) {
+  if (["Quota dovuta", "Quota pagata", "Anticipo da rimborsare", "Saldo", "Prezzo unitario", "Ricavo", "Costo unitario", "Costo totale", "Importo", "Utile lordo"].includes(column)) {
     return euro.format(Number(value) || 0);
   }
   if (column === "Stato" || column === "Stato pagamento" || column === "Stato consegna" || column === "Approvata?" || column === "Incassato?") {

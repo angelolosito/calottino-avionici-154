@@ -144,6 +144,148 @@ def parameter_value(rows: list[dict[str, Any]], label: str) -> float:
     return 0
 
 
+def is_advance_reimbursement(row: dict[str, Any]) -> bool:
+    text = " ".join(
+        str(clean_value(row.get(key)) or "")
+        for key in ("Categoria", "Descrizione", "Note")
+    ).casefold()
+    return "rimborso" in text and "anticipo" in text
+
+
+def build_flows(summary: dict[str, Any]) -> dict[str, Any]:
+    rows = [
+        {
+            "Voce": "Quote incassate",
+            "Importo": summary["duesCollected"],
+            "Segno": "Entrata",
+            "Note": "Quote iniziali effettive pagate dai componenti",
+        },
+    ]
+
+    if summary["advancesReceived"]:
+        rows.append(
+            {
+                "Voce": "Anticipi da restituire",
+                "Importo": summary["advancesOutstanding"],
+                "Segno": "Debito",
+                "Note": "Anticipi temporanei registrati nelle quote, esclusi dagli incassi quota",
+            }
+        )
+
+    rows.extend(
+        [
+            {
+                "Voce": "Ricavi patch incassati totali",
+                "Importo": summary["patchRevenue"],
+                "Segno": "Entrata",
+                "Note": "Vendite incassate totali: esterni + interni",
+            },
+            {
+                "Voce": "Costo acquisti patch",
+                "Importo": summary["patchPurchaseCost"],
+                "Segno": "Uscita",
+                "Note": "Acquisti patch registrati come pagati/parziali",
+            },
+            {
+                "Voce": "Spese categoria",
+                "Importo": summary["categoryExpenses"],
+                "Segno": "Uscita",
+                "Note": "Spese approvate, inclusi eventuali rimborsi anticipo già pagati",
+            },
+            {
+                "Voce": "Cassa disponibile stimata",
+                "Importo": summary["cashAvailable"],
+                "Segno": "Saldo",
+                "Note": "Entrate, ricavi e anticipi temporanei - uscite",
+            },
+        ]
+    )
+
+    if summary["advancesOutstanding"]:
+        rows.append(
+            {
+                "Voce": "Saldo netto dopo rimborsi",
+                "Importo": summary["netAfterAdvances"],
+                "Segno": "Saldo",
+                "Note": "Cassa stimata al netto degli anticipi ancora da restituire",
+            }
+        )
+
+    rows.extend(
+        [
+            {
+                "Voce": "Ricavi patch esterni incassati",
+                "Importo": summary["patchRevenueExternal"],
+                "Segno": "Entrata",
+                "Note": "Vendite incassate a prezzo esterni",
+            },
+            {
+                "Voce": "Ricavi patch interni incassati",
+                "Importo": summary["patchRevenueInternal"],
+                "Segno": "Entrata",
+                "Note": "Vendite incassate a prezzo interni",
+            },
+        ]
+    )
+
+    return {
+        "title": "Flussi principali",
+        "headers": ["Voce", "Importo", "Segno", "Note"],
+        "rows": rows,
+    }
+
+
+def build_inventory(summary: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "title": "Magazzino patch",
+        "headers": ["Voce", "Valore", "Unità", "Note"],
+        "rows": [
+            {
+                "Voce": "Patch acquistate",
+                "Valore": summary["patchPurchased"],
+                "Unità": "pezzi",
+                "Note": "Totale inserito in Acquisti_Patch",
+            },
+            {
+                "Voce": "Patch vendute",
+                "Valore": summary["patchSold"],
+                "Unità": "pezzi",
+                "Note": "Totale inserito in Vendite_Patch",
+            },
+            {
+                "Voce": "Patch disponibili",
+                "Valore": summary["patchAvailable"],
+                "Unità": "pezzi",
+                "Note": "Acquistate - vendute",
+            },
+            {
+                "Voce": "Break-even acquisti a prezzo esterni",
+                "Valore": summary["breakEvenPatchesExternal"],
+                "Unità": "pezzi",
+                "Note": "Patch da vendere a prezzo esterni per coprire il costo acquisti",
+            },
+            {
+                "Voce": "Margine unitario esterni",
+                "Valore": summary["patchUnitMarginExternal"],
+                "Unità": "€",
+                "Note": "Prezzo esterni - costo unitario",
+            },
+            {
+                "Voce": "Break-even acquisti a prezzo interni",
+                "Valore": summary["breakEvenPatchesInternal"],
+                "Unità": "pezzi",
+                "Note": "Patch da vendere a prezzo interni per coprire il costo acquisti",
+            },
+            {
+                "Voce": "Margine unitario interni",
+                "Valore": summary["patchUnitMarginInternal"],
+                "Unità": "€",
+                "Note": "Prezzo interni - costo unitario",
+            },
+        ],
+    }
+
+
 def load_statute(output_path: Path) -> dict[str, Any]:
     for source in (output_path, LEGACY_DATA):
         if source.exists():
@@ -190,21 +332,19 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
     parameters = table_from_sheet(workbook, "Parametri", header_row=3, required_headers=["Voce"])
 
     dashboard_sheet = workbook["Dashboard"]
-    flows = table_until_blank(dashboard_sheet, "A13", 14, 1, 4, 15)
-    inventory = table_until_blank(dashboard_sheet, "G13", 14, 7, 10, 15)
 
     member_rows = people["rows"]
     purchase_rows = purchases["rows"]
     sale_rows = sales["rows"]
     expense_rows = expenses["rows"]
     parameter_rows = parameters["rows"]
-    inventory_rows = inventory["rows"]
 
     paid_members = sum(1 for row in member_rows if row.get("Stato") == "Pagata")
     partial_members = sum(1 for row in member_rows if row.get("Stato") == "Parziale")
     due_total = sum(number(row.get("Quota dovuta")) for row in member_rows)
     paid_total = sum(number(row.get("Quota pagata")) for row in member_rows)
     remaining_total = max(due_total - paid_total, 0)
+    advances_received = sum(number(row.get("Anticipo da rimborsare")) for row in member_rows)
 
     external_price = parameter_value(parameter_rows, "Prezzo rivendita patch Esterni")
     internal_price = parameter_value(parameter_rows, "Prezzo rivendita patch Interni")
@@ -220,6 +360,12 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
         if is_yes(row.get("Stato pagamento")) or str(row.get("Stato pagamento") or "").casefold() == "parziale"
     )
     approved_expenses = sum(number(row.get("Importo")) for row in expense_rows if is_yes(row.get("Approvata?")))
+    advances_reimbursed = sum(
+        number(row.get("Importo"))
+        for row in expense_rows
+        if is_yes(row.get("Approvata?")) and is_advance_reimbursement(row)
+    )
+    advances_outstanding = max(advances_received - advances_reimbursed, 0)
     collected_sales = [row for row in sale_rows if is_yes(row.get("Incassato?"))]
     patch_revenue = sum(number(row.get("Ricavo")) for row in collected_sales)
     patch_gross_profit = sum(number(row.get("Utile lordo")) for row in collected_sales)
@@ -229,66 +375,57 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
     patch_revenue_internal = sum(
         number(row.get("Ricavo")) for row in collected_sales if number(row.get("Prezzo unitario")) == internal_price
     )
-    cash_available = paid_total + patch_revenue - patch_purchase_cost - approved_expenses
+    cash_available = paid_total + patch_revenue + advances_received - patch_purchase_cost - approved_expenses
+    net_after_advances = cash_available - advances_outstanding
 
-    break_even_external = number(
-        lookup_any(
-            inventory_rows,
-            ["Break-even acquisti a prezzo esterni", "Break-even patch a prezzo esterni", "Break-even acquisti"],
-            "Valore",
-        )
-    )
-    break_even_internal = number(
-        lookup_any(
-            inventory_rows,
-            ["Break-even acquisti a prezzo interni", "Break-even patch a prezzo interni"],
-            "Valore",
-        )
-    )
-    if not break_even_external and external_price:
-        break_even_external = math.ceil(patch_purchase_cost / external_price)
-    if not break_even_internal and internal_price:
-        break_even_internal = math.ceil(patch_purchase_cost / internal_price)
+    break_even_external = math.ceil(patch_purchase_cost / external_price) if external_price else 0
+    break_even_internal = math.ceil(patch_purchase_cost / internal_price) if internal_price else 0
+
+    summary = {
+        "cashAvailable": cash_available,
+        "netAfterAdvances": net_after_advances,
+        "duesCollected": paid_total,
+        "advancesReceived": advances_received,
+        "advancesReimbursed": advances_reimbursed,
+        "advancesOutstanding": advances_outstanding,
+        "patchRevenue": patch_revenue,
+        "patchRevenueExternal": patch_revenue_external,
+        "patchRevenueInternal": patch_revenue_internal,
+        "patchPurchaseCost": patch_purchase_cost,
+        "categoryExpenses": approved_expenses,
+        "patchGrossProfit": patch_gross_profit,
+        "patchPurchased": patch_purchased,
+        "patchSold": patch_sold,
+        "patchAvailable": patch_available,
+        "breakEvenPatches": break_even_external,
+        "breakEvenPatchesExternal": break_even_external,
+        "breakEvenPatchesInternal": break_even_internal,
+        "patchUnitMargin": external_margin,
+        "patchUnitMarginExternal": external_margin,
+        "patchUnitMarginInternal": internal_margin,
+        "membersTotal": len(member_rows),
+        "membersPaid": paid_members,
+        "membersPartial": partial_members,
+        "membersOpen": max(len(member_rows) - paid_members - partial_members, 0),
+        "duesExpected": due_total,
+        "duesRemaining": remaining_total,
+        "duesCompletionRate": round((paid_total / due_total) * 100, 1) if due_total else 0,
+        "purchasesCount": len(purchase_rows),
+        "salesCount": len(sale_rows),
+        "expensesCount": len(expense_rows),
+    }
 
     return {
         "workbookTitle": clean_value(dashboard_sheet["A1"].value),
         "workbookSubtitle": clean_value(dashboard_sheet["A2"].value),
-        "summary": {
-            "cashAvailable": cash_available,
-            "duesCollected": paid_total,
-            "patchRevenue": patch_revenue,
-            "patchRevenueExternal": patch_revenue_external,
-            "patchRevenueInternal": patch_revenue_internal,
-            "patchPurchaseCost": patch_purchase_cost,
-            "categoryExpenses": approved_expenses,
-            "patchGrossProfit": patch_gross_profit,
-            "patchPurchased": patch_purchased,
-            "patchSold": patch_sold,
-            "patchAvailable": patch_available,
-            "breakEvenPatches": break_even_external,
-            "breakEvenPatchesExternal": break_even_external,
-            "breakEvenPatchesInternal": break_even_internal,
-            "patchUnitMargin": external_margin,
-            "patchUnitMarginExternal": external_margin,
-            "patchUnitMarginInternal": internal_margin,
-            "membersTotal": len(member_rows),
-            "membersPaid": paid_members,
-            "membersPartial": partial_members,
-            "membersOpen": max(len(member_rows) - paid_members - partial_members, 0),
-            "duesExpected": due_total,
-            "duesRemaining": remaining_total,
-            "duesCompletionRate": round((paid_total / due_total) * 100, 1) if due_total else 0,
-            "purchasesCount": len(purchase_rows),
-            "salesCount": len(sale_rows),
-            "expensesCount": len(expense_rows),
-        },
+        "summary": summary,
         "parameters": parameters,
         "people": people,
         "purchases": purchases,
         "sales": sales,
         "expenses": expenses,
-        "flows": flows,
-        "inventory": inventory,
+        "flows": build_flows(summary),
+        "inventory": build_inventory(summary),
         "worksheets": workbook.sheetnames,
     }
 

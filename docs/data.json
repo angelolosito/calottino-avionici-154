@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-17T09:42:58.292402+00:00",
+  "generatedAt": "2026-06-17T10:02:11.259457+00:00",
   "sources": {
     "excel": {
       "file": "calottino_categoria_gestione.xlsx",
-      "modifiedAt": "2026-06-17T10:59:06.023521"
+      "modifiedAt": "2026-06-17T11:59:34.149730"
     }
   },
   "excel": {
@@ -11,7 +11,11 @@
     "workbookSubtitle": "Gestione quote, patch, magazzino, ricavi, cassa e spese di categoria",
     "summary": {
       "cashAvailable": -64.0,
-      "duesCollected": 520.0,
+      "netAfterAdvances": -309.0,
+      "duesCollected": 275.0,
+      "advancesReceived": 245.0,
+      "advancesReimbursed": 0,
+      "advancesOutstanding": 245.0,
       "patchRevenue": 36.0,
       "patchRevenueExternal": 0.0,
       "patchRevenueInternal": 36.0,
@@ -21,9 +25,9 @@
       "patchPurchased": 200.0,
       "patchSold": 16.0,
       "patchAvailable": 184.0,
-      "breakEvenPatches": 36.0,
-      "breakEvenPatchesExternal": 36.0,
-      "breakEvenPatchesInternal": 45.0,
+      "breakEvenPatches": 36,
+      "breakEvenPatchesExternal": 36,
+      "breakEvenPatchesInternal": 45,
       "patchUnitMargin": 12.3,
       "patchUnitMarginExternal": 12.3,
       "patchUnitMarginInternal": 9.3,
@@ -32,8 +36,8 @@
       "membersPartial": 0,
       "membersOpen": 4,
       "duesExpected": 375.0,
-      "duesRemaining": 0,
-      "duesCompletionRate": 138.7,
+      "duesRemaining": 100.0,
+      "duesCompletionRate": 73.3,
       "purchasesCount": 1,
       "salesCount": 9,
       "expensesCount": 1
@@ -116,19 +120,21 @@
         "Stato",
         "Data pagamento",
         "Metodo",
-        "Note"
+        "Note",
+        "Anticipo da rimborsare"
       ],
       "rows": [
         {
           "ID": 1,
           "Nome / Cognome": "Capodanno",
           "Quota dovuta": 25,
-          "Quota pagata": 270,
-          "Saldo": 245,
+          "Quota pagata": 25,
+          "Saldo": 0,
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
           "Metodo": "Contanti",
-          "Note": null
+          "Note": "Quota effettiva 25 euro; extra 245 euro registrato come anticipo da rimborsare.",
+          "Anticipo da rimborsare": 245
         },
         {
           "ID": 2,
@@ -139,7 +145,8 @@
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
           "Metodo": "PayPal",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 3,
@@ -150,7 +157,8 @@
           "Stato": "Da pagare",
           "Data pagamento": null,
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 4,
@@ -161,7 +169,8 @@
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
           "Metodo": "PayPal",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 5,
@@ -172,7 +181,8 @@
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
           "Metodo": "PayPal",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 6,
@@ -183,7 +193,8 @@
           "Stato": "Da pagare",
           "Data pagamento": null,
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 7,
@@ -194,7 +205,8 @@
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
           "Metodo": "PayPal",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 8,
@@ -205,7 +217,8 @@
           "Stato": "Da pagare",
           "Data pagamento": null,
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 9,
@@ -216,7 +229,8 @@
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
           "Metodo": "PayPal",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 10,
@@ -227,7 +241,8 @@
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
           "Metodo": "PayPal",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 11,
@@ -238,7 +253,8 @@
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
           "Metodo": "PayPal",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 12,
@@ -249,7 +265,8 @@
           "Stato": "Pagata",
           "Data pagamento": "16/06/2026",
           "Metodo": "PayPal",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 13,
@@ -260,7 +277,8 @@
           "Stato": "Pagata",
           "Data pagamento": "17/06/2026",
           "Metodo": "Contanti",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 14,
@@ -271,7 +289,8 @@
           "Stato": "Da pagare",
           "Data pagamento": null,
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         },
         {
           "ID": 15,
@@ -282,7 +301,8 @@
           "Stato": "Pagata",
           "Data pagamento": "17/06/2026",
           "Metodo": "PayPal",
-          "Note": null
+          "Note": null,
+          "Anticipo da rimborsare": null
         }
       ]
     },
@@ -487,45 +507,57 @@
       "rows": [
         {
           "Voce": "Quote incassate",
-          "Importo": 520,
+          "Importo": 275.0,
           "Segno": "Entrata",
-          "Note": "Quote iniziali pagate dai 15 componenti"
+          "Note": "Quote iniziali effettive pagate dai componenti"
+        },
+        {
+          "Voce": "Anticipi da restituire",
+          "Importo": 245.0,
+          "Segno": "Debito",
+          "Note": "Anticipi temporanei registrati nelle quote, esclusi dagli incassi quota"
         },
         {
           "Voce": "Ricavi patch incassati totali",
-          "Importo": 36,
+          "Importo": 36.0,
           "Segno": "Entrata",
           "Note": "Vendite incassate totali: esterni + interni"
         },
         {
           "Voce": "Costo acquisti patch",
-          "Importo": 540,
+          "Importo": 540.0,
           "Segno": "Uscita",
           "Note": "Acquisti patch registrati come pagati/parziali"
         },
         {
           "Voce": "Spese categoria",
-          "Importo": 80,
+          "Importo": 80.0,
           "Segno": "Uscita",
-          "Note": "Spese approvate per ufficio, pranzi, eventi"
+          "Note": "Spese approvate, inclusi eventuali rimborsi anticipo già pagati"
         },
         {
           "Voce": "Cassa disponibile stimata",
-          "Importo": -64,
+          "Importo": -64.0,
           "Segno": "Saldo",
-          "Note": "Entrate - uscite"
+          "Note": "Entrate, ricavi e anticipi temporanei - uscite"
+        },
+        {
+          "Voce": "Saldo netto dopo rimborsi",
+          "Importo": -309.0,
+          "Segno": "Saldo",
+          "Note": "Cassa stimata al netto degli anticipi ancora da restituire"
         },
         {
           "Voce": "Ricavi patch esterni incassati",
-          "Importo": 0,
+          "Importo": 0.0,
           "Segno": "Entrata",
-          "Note": "Vendite incassate a prezzo esterni (€15)"
+          "Note": "Vendite incassate a prezzo esterni"
         },
         {
           "Voce": "Ricavi patch interni incassati",
-          "Importo": 36,
+          "Importo": 36.0,
           "Segno": "Entrata",
-          "Note": "Vendite incassate a prezzo interni (€12)"
+          "Note": "Vendite incassate a prezzo interni"
         }
       ]
     },
@@ -540,19 +572,19 @@
       "rows": [
         {
           "Voce": "Patch acquistate",
-          "Valore": 200,
+          "Valore": 200.0,
           "Unità": "pezzi",
           "Note": "Totale inserito in Acquisti_Patch"
         },
         {
           "Voce": "Patch vendute",
-          "Valore": 16,
+          "Valore": 16.0,
           "Unità": "pezzi",
           "Note": "Totale inserito in Vendite_Patch"
         },
         {
           "Voce": "Patch disponibili",
-          "Valore": 184,
+          "Valore": 184.0,
           "Unità": "pezzi",
           "Note": "Acquistate - vendute"
         },
