@@ -107,21 +107,43 @@
         </div>
       </section>
 
-      <section id="patch" class="data-section section-alt">
-        <div class="section-inner split-grid">
-          <div>
-            <div class="section-heading">
-              <span>Patch</span>
-              <h2>Vendite</h2>
+      <section id="patch" class="data-section section-alt patch-section">
+        <div class="section-inner patch-layout">
+          <aside class="patch-sidebar" aria-label="Navigazione area patch">
+            <div class="patch-sidebar-card">
+              <div class="patch-sidebar-title">
+                <span>Patch</span>
+                <strong>Movimento rapido</strong>
+              </div>
+              <nav class="patch-nav" aria-label="Scorciatoie patch">
+                <a href="#patch-summary">Riepilogo</a>
+                <a href="#patch-sales">Vendite</a>
+                <a href="#patch-sales-end">Fine vendite</a>
+                <a href="#patch-purchases">Acquisti</a>
+              </nav>
+              <div id="patchQuickStats" class="patch-quick-stats" aria-label="Riepilogo rapido patch"></div>
             </div>
-            <div id="salesTable" class="table-shell compact"></div>
-          </div>
-          <div>
-            <div class="section-heading">
-              <span>Magazzino</span>
-              <h2>Acquisti</h2>
-            </div>
-            <div id="purchasesTable" class="table-shell compact"></div>
+          </aside>
+
+          <div class="patch-main">
+            <div id="patch-summary" class="patch-summary-grid" aria-label="Riepilogo patch"></div>
+
+            <article id="patch-sales" class="patch-block">
+              <div class="section-heading">
+                <span>Patch</span>
+                <h2>Vendite</h2>
+              </div>
+              <div id="salesTable" class="table-shell compact"></div>
+              <div id="patch-sales-end" class="patch-table-end" aria-hidden="true"></div>
+            </article>
+
+            <article id="patch-purchases" class="patch-block">
+              <div class="section-heading">
+                <span>Magazzino</span>
+                <h2>Acquisti</h2>
+              </div>
+              <div id="purchasesTable" class="table-shell compact"></div>
+            </article>
           </div>
         </div>
       </section>

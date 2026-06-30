@@ -119,6 +119,7 @@ function renderAll() {
   renderDues(summary);
   renderFlowList(excel.flows.rows);
   renderInventoryList(excel.inventory.rows);
+  renderPatchDashboard(summary);
   renderPeople(memberRows);
   renderDataTable("#salesTable", excel.sales.rows, ["Data", "Acquirente", "Descrizione", "Quantità", "Prezzo unitario", "Ricavo", "Utile lordo", "Incassato?", "Metodo", "Note"], "Nessuna vendita registrata.");
   renderDataTable("#purchasesTable", excel.purchases.rows, ["Data", "Fornitore", "Lotto / Descrizione", "Quantità", "Costo unitario", "Costo totale", "Stato pagamento"], "Nessun acquisto registrato.");
@@ -182,6 +183,60 @@ function renderInventoryList(rows) {
       <div class="mini-item">
         <span>${escapeHtml(row.Voce)}</span>
         <strong>${formatInventory(row.Valore, row.Unità)}</strong>
+      </div>
+    `)
+    .join("");
+}
+
+function renderPatchDashboard(summary) {
+  const summaryTarget = document.querySelector("#patch-summary");
+  const quickStatsTarget = document.querySelector("#patchQuickStats");
+  if (!summaryTarget || !quickStatsTarget) return;
+
+  const cards = [
+    [
+      "Patch disponibili",
+      integer.format(summary.patchAvailable || 0),
+      `${integer.format(summary.patchPurchased || 0)} acquistate, ${integer.format(summary.patchSold || 0)} uscite`,
+    ],
+    [
+      "Vendite registrate",
+      integer.format(summary.salesCount || 0),
+      `${euro.format(summary.patchRevenue || 0)} incassati`,
+    ],
+    [
+      "Ricavi divisi",
+      euro.format(summary.patchRevenue || 0),
+      `${euro.format(summary.patchRevenueExternal || 0)} esterni, ${euro.format(summary.patchRevenueInternal || 0)} interni`,
+    ],
+    [
+      "Break-even",
+      `${integer.format(summary.breakEvenPatchesExternal || 0)} / ${integer.format(summary.breakEvenPatchesInternal || 0)}`,
+      "Pezzi esterni / interni",
+    ],
+  ];
+
+  summaryTarget.innerHTML = cards
+    .map(([label, value, note]) => `
+      <article class="patch-summary-card">
+        <span>${escapeHtml(label)}</span>
+        <strong>${escapeHtml(value)}</strong>
+        <small>${escapeHtml(note)}</small>
+      </article>
+    `)
+    .join("");
+
+  const quickStats = [
+    ["Vendite", integer.format(summary.salesCount || 0)],
+    ["Disponibili", integer.format(summary.patchAvailable || 0)],
+    ["Ricavi", euro.format(summary.patchRevenue || 0)],
+  ];
+
+  quickStatsTarget.innerHTML = quickStats
+    .map(([label, value]) => `
+      <div class="patch-quick-stat">
+        <span>${escapeHtml(label)}</span>
+        <strong>${escapeHtml(value)}</strong>
       </div>
     `)
     .join("");
