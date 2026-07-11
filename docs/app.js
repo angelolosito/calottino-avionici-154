@@ -121,7 +121,8 @@ function renderAll() {
   renderInventoryList(excel.inventory.rows);
   renderPatchDashboard(summary);
   renderPeople(memberRows);
-  renderDataTable("#salesTable", excel.sales.rows, ["Data", "Acquirente", "Descrizione", "Quantità", "Prezzo unitario", "Ricavo", "Utile lordo", "Incassato?", "Metodo", "Note"], "Nessuna vendita registrata.");
+  renderDataTable("#assignmentsTable", excel.assignments?.rows || [], ["Data affidamento", "Venditore", "Quantità affidata", "Quantità venduta", "Quantità restituita", "Patch ancora affidate", "Incasso vendite", "Versato in cassa", "Denaro da versare", "Stato", "Stato / Note"], "Nessuna patch affidata a venditori.");
+  renderDataTable("#salesTable", excel.sales.rows, ["Data", "Acquirente", "Venditore", "Descrizione", "Quantità", "Prezzo unitario", "Ricavo", "Utile lordo", "Incassato?", "Metodo", "Note"], "Nessuna vendita registrata.");
   renderDataTable("#purchasesTable", excel.purchases.rows, ["Data", "Fornitore", "Lotto / Descrizione", "Quantità", "Costo unitario", "Costo totale", "Stato pagamento"], "Nessun acquisto registrato.");
   renderDataTable("#expensesTable", excel.expenses.rows, ["Data", "Categoria", "Descrizione", "Importo", "Pagato da", "Metodo", "Approvata?", "Note"], "Nessuna spesa registrata.");
   renderDataTable("#parametersTable", excel.parameters.rows, ["Voce", "Valore", "Unità", "Note"], "Nessun parametro disponibile.");
@@ -133,7 +134,7 @@ function renderKpis(summary) {
     ["Cassa disponibile", euro.format(summary.cashAvailable), "Include eventuali anticipi temporanei"],
     ["Quote incassate", euro.format(summary.duesCollected), `${summary.membersPaid}/${summary.membersTotal} persone in regola`],
     ["Ricavi patch", euro.format(summary.patchRevenue), `${euro.format(summary.patchRevenueExternal || 0)} esterni, ${euro.format(summary.patchRevenueInternal || 0)} interni`],
-    ["Patch disponibili", integer.format(summary.patchAvailable), `${integer.format(summary.patchPurchased)} acquistate, ${integer.format(summary.patchSold)} vendute`],
+    ["Patch disponibili", integer.format(summary.patchAvailable), `${integer.format(summary.patchInStock ?? summary.patchAvailable)} in magazzino, ${integer.format(summary.patchEntrusted || 0)} affidate`],
     ["Margini unitari", `${euro.format(summary.patchUnitMarginExternal || summary.patchUnitMargin || 0)} / ${euro.format(summary.patchUnitMarginInternal || 0)}`, "Esterni / interni"],
   ];
 
@@ -142,6 +143,14 @@ function renderKpis(summary) {
       "Anticipi da restituire",
       euro.format(summary.advancesOutstanding),
       `${euro.format(summary.advancesReceived || 0)} anticipati, ${euro.format(summary.advancesReimbursed || 0)} rimborsati`,
+    ]);
+  }
+
+  if (summary.cashHeldBySellers > 0) {
+    cards.splice(3, 0, [
+      "Da versare in cassa",
+      euro.format(summary.cashHeldBySellers),
+      "Incassi ancora presso i venditori",
     ]);
   }
 
@@ -195,9 +204,14 @@ function renderPatchDashboard(summary) {
 
   const cards = [
     [
-      "Patch disponibili",
-      integer.format(summary.patchAvailable || 0),
-      `${integer.format(summary.patchPurchased || 0)} acquistate, ${integer.format(summary.patchSold || 0)} uscite`,
+      "Magazzino centrale",
+      integer.format(summary.patchInStock ?? summary.patchAvailable ?? 0),
+      `${integer.format(summary.patchEntrusted || 0)} affidate, ${integer.format(summary.patchSold || 0)} vendute`,
+    ],
+    [
+      "Presso i venditori",
+      integer.format(summary.patchEntrusted || 0),
+      `${euro.format(summary.cashHeldBySellers || 0)} ancora da versare`,
     ],
     [
       "Vendite registrate",
@@ -228,8 +242,8 @@ function renderPatchDashboard(summary) {
 
   const quickStats = [
     ["Vendite", integer.format(summary.salesCount || 0)],
-    ["Disponibili", integer.format(summary.patchAvailable || 0)],
-    ["Ricavi", euro.format(summary.patchRevenue || 0)],
+    ["In magazzino", integer.format(summary.patchInStock ?? summary.patchAvailable ?? 0)],
+    ["Da versare", euro.format(summary.cashHeldBySellers || 0)],
   ];
 
   quickStatsTarget.innerHTML = quickStats
@@ -328,7 +342,7 @@ function formatCell(value, column, row = {}) {
   if (column === "Valore") {
     return row.Unità === "€" ? euro.format(Number(value) || 0) : escapeHtml(String(value));
   }
-  if (["Quota dovuta", "Quota pagata", "Anticipo da rimborsare", "Saldo", "Prezzo unitario", "Ricavo", "Costo unitario", "Costo totale", "Importo", "Utile lordo"].includes(column)) {
+  if (["Quota dovuta", "Quota pagata", "Anticipo da rimborsare", "Saldo", "Prezzo unitario", "Ricavo", "Costo unitario", "Costo totale", "Importo", "Utile lordo", "Incasso vendite", "Versato in cassa", "Denaro da versare"].includes(column)) {
     return euro.format(Number(value) || 0);
   }
   if (column === "Stato" || column === "Stato pagamento" || column === "Stato consegna" || column === "Approvata?" || column === "Incassato?") {
@@ -339,8 +353,8 @@ function formatCell(value, column, row = {}) {
 
 function statusClass(value) {
   const normalized = String(value).toLowerCase();
-  if (normalized.includes("pagata") || normalized.includes("pagato") || normalized === "sì") return "status-paid";
-  if (normalized.includes("parziale")) return "status-partial";
+  if (normalized.includes("pagata") || normalized.includes("pagato") || normalized.includes("chiuso") || normalized === "sì") return "status-paid";
+  if (normalized.includes("parziale") || normalized.includes("affidamento")) return "status-partial";
   return "status-open";
 }
 

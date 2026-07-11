@@ -323,6 +323,12 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
         header_row=3,
         required_headers=["Data", "Acquirente", "Quantità", "Ricavo"],
     )
+    assignments = table_from_sheet(
+        workbook,
+        "Affidamenti_Patch",
+        header_row=3,
+        required_headers=["Data affidamento", "Venditore", "Quantità affidata"],
+    )
     expenses = table_from_sheet(
         workbook,
         "Spese_Categoria",
@@ -336,6 +342,7 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
     member_rows = people["rows"]
     purchase_rows = purchases["rows"]
     sale_rows = sales["rows"]
+    assignment_rows = assignments["rows"]
     expense_rows = expenses["rows"]
     parameter_rows = parameters["rows"]
 
@@ -375,7 +382,42 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
     patch_revenue_internal = sum(
         number(row.get("Ricavo")) for row in collected_sales if number(row.get("Prezzo unitario")) == internal_price
     )
-    cash_available = paid_total + patch_revenue + advances_received - patch_purchase_cost - approved_expenses
+
+    assignment_view_rows = []
+    patch_entrusted = 0
+    cash_held_by_sellers = 0
+    for row in assignment_rows:
+        seller = str(row.get("Venditore") or "").strip()
+        if not seller:
+            continue
+        seller_key = seller.casefold()
+        seller_sales = [
+            sale for sale in collected_sales
+            if str(sale.get("Venditore") or "").strip().casefold() == seller_key
+        ]
+        sold_quantity = sum(number(sale.get("Quantità")) for sale in seller_sales)
+        sales_revenue = sum(number(sale.get("Ricavo")) for sale in seller_sales)
+        assigned_quantity = number(row.get("Quantità affidata"))
+        returned_quantity = number(row.get("Quantità restituita"))
+        deposited_cash = number(row.get("Versato in cassa"))
+        remaining_quantity = max(assigned_quantity - sold_quantity - returned_quantity, 0)
+        cash_to_deposit = max(sales_revenue - deposited_cash, 0)
+        patch_entrusted += remaining_quantity
+        cash_held_by_sellers += cash_to_deposit
+        assignment_view_rows.append({
+            **row,
+            "Quantità venduta": sold_quantity,
+            "Patch ancora affidate": remaining_quantity,
+            "Incasso vendite": sales_revenue,
+            "Denaro da versare": cash_to_deposit,
+            "Stato": "Chiuso" if remaining_quantity == 0 and cash_to_deposit == 0 else (
+                "Da versare" if cash_to_deposit > 0 else "In affidamento"
+            ),
+        })
+
+    patch_in_stock = max(patch_available - patch_entrusted, 0)
+    patch_revenue_in_cash = max(patch_revenue - cash_held_by_sellers, 0)
+    cash_available = paid_total + patch_revenue_in_cash + advances_received - patch_purchase_cost - approved_expenses
     net_after_advances = cash_available - advances_outstanding
 
     break_even_external = math.ceil(patch_purchase_cost / external_price) if external_price else 0
@@ -389,6 +431,8 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
         "advancesReimbursed": advances_reimbursed,
         "advancesOutstanding": advances_outstanding,
         "patchRevenue": patch_revenue,
+        "patchRevenueInCash": patch_revenue_in_cash,
+        "cashHeldBySellers": cash_held_by_sellers,
         "patchRevenueExternal": patch_revenue_external,
         "patchRevenueInternal": patch_revenue_internal,
         "patchPurchaseCost": patch_purchase_cost,
@@ -397,6 +441,8 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
         "patchPurchased": patch_purchased,
         "patchSold": patch_sold,
         "patchAvailable": patch_available,
+        "patchInStock": patch_in_stock,
+        "patchEntrusted": patch_entrusted,
         "breakEvenPatches": break_even_external,
         "breakEvenPatchesExternal": break_even_external,
         "breakEvenPatchesInternal": break_even_internal,
@@ -412,6 +458,7 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
         "duesCompletionRate": round((paid_total / due_total) * 100, 1) if due_total else 0,
         "purchasesCount": len(purchase_rows),
         "salesCount": len(sale_rows),
+        "assignmentsCount": len(assignment_view_rows),
         "expensesCount": len(expense_rows),
     }
 
@@ -423,6 +470,11 @@ def read_workbook(excel_path: Path) -> dict[str, Any]:
         "people": people,
         "purchases": purchases,
         "sales": sales,
+        "assignments": {
+            "title": assignments["title"],
+            "headers": assignments["headers"] + (["Stato"] if "Stato" not in assignments["headers"] else []),
+            "rows": assignment_view_rows,
+        },
         "expenses": expenses,
         "flows": build_flows(summary),
         "inventory": build_inventory(summary),

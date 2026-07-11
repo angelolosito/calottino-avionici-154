@@ -1,30 +1,34 @@
 {
-  "generatedAt": "2026-06-17T10:02:11.259457+00:00",
+  "generatedAt": "2026-07-11T10:10:23.861059+00:00",
   "sources": {
     "excel": {
       "file": "calottino_categoria_gestione.xlsx",
-      "modifiedAt": "2026-06-17T11:59:34.149730"
+      "modifiedAt": "2026-07-11T12:10:19.719376"
     }
   },
   "excel": {
     "workbookTitle": "Dashboard calottino di categoria",
     "workbookSubtitle": "Gestione quote, patch, magazzino, ricavi, cassa e spese di categoria",
     "summary": {
-      "cashAvailable": -64.0,
-      "netAfterAdvances": -309.0,
-      "duesCollected": 275.0,
-      "advancesReceived": 245.0,
+      "cashAvailable": 33.0,
+      "netAfterAdvances": 33.0,
+      "duesCollected": 375.0,
+      "advancesReceived": 0.0,
       "advancesReimbursed": 0,
-      "advancesOutstanding": 245.0,
-      "patchRevenue": 36.0,
-      "patchRevenueExternal": 0.0,
-      "patchRevenueInternal": 36.0,
+      "advancesOutstanding": 0.0,
+      "patchRevenue": 278.0,
+      "patchRevenueInCash": 278.0,
+      "cashHeldBySellers": 0,
+      "patchRevenueExternal": 170.0,
+      "patchRevenueInternal": 108.0,
       "patchPurchaseCost": 540.0,
       "categoryExpenses": 80.0,
-      "patchGrossProfit": 27.900000000000002,
+      "patchGrossProfit": 224.0,
       "patchPurchased": 200.0,
-      "patchSold": 16.0,
-      "patchAvailable": 184.0,
+      "patchSold": 48.0,
+      "patchAvailable": 152.0,
+      "patchInStock": 152.0,
+      "patchEntrusted": 0,
       "breakEvenPatches": 36,
       "breakEvenPatchesExternal": 36,
       "breakEvenPatchesInternal": 45,
@@ -32,14 +36,15 @@
       "patchUnitMarginExternal": 12.3,
       "patchUnitMarginInternal": 9.3,
       "membersTotal": 15,
-      "membersPaid": 11,
+      "membersPaid": 15,
       "membersPartial": 0,
-      "membersOpen": 4,
+      "membersOpen": 0,
       "duesExpected": 375.0,
-      "duesRemaining": 100.0,
-      "duesCompletionRate": 73.3,
+      "duesRemaining": 0.0,
+      "duesCompletionRate": 100.0,
       "purchasesCount": 1,
-      "salesCount": 9,
+      "salesCount": 26,
+      "assignmentsCount": 0,
       "expensesCount": 1
     },
     "parameters": {
@@ -134,7 +139,7 @@
           "Data pagamento": "16/06/2026",
           "Metodo": "Contanti",
           "Note": "Quota effettiva 25 euro; extra 245 euro registrato come anticipo da rimborsare.",
-          "Anticipo da rimborsare": 245
+          "Anticipo da rimborsare": 0
         },
         {
           "ID": 2,
@@ -152,11 +157,11 @@
           "ID": 3,
           "Nome / Cognome": "Marchesani",
           "Quota dovuta": 25,
-          "Quota pagata": 0,
-          "Saldo": -25,
-          "Stato": "Da pagare",
-          "Data pagamento": null,
-          "Metodo": null,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "19/06/2026",
+          "Metodo": "PayPal",
           "Note": null,
           "Anticipo da rimborsare": null
         },
@@ -188,11 +193,11 @@
           "ID": 6,
           "Nome / Cognome": "Di Stefano",
           "Quota dovuta": 25,
-          "Quota pagata": 0,
-          "Saldo": -25,
-          "Stato": "Da pagare",
-          "Data pagamento": null,
-          "Metodo": null,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "30/06/2026",
+          "Metodo": "PayPal",
           "Note": null,
           "Anticipo da rimborsare": null
         },
@@ -212,11 +217,11 @@
           "ID": 8,
           "Nome / Cognome": "Locorotondo",
           "Quota dovuta": 25,
-          "Quota pagata": 0,
-          "Saldo": -25,
-          "Stato": "Da pagare",
-          "Data pagamento": null,
-          "Metodo": null,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "26/06/2026",
+          "Metodo": "PayPal",
           "Note": null,
           "Anticipo da rimborsare": null
         },
@@ -284,11 +289,11 @@
           "ID": 14,
           "Nome / Cognome": "Babele",
           "Quota dovuta": 25,
-          "Quota pagata": 0,
-          "Saldo": -25,
-          "Stato": "Da pagare",
-          "Data pagamento": null,
-          "Metodo": null,
+          "Quota pagata": 25,
+          "Saldo": 0,
+          "Stato": "Pagata",
+          "Data pagamento": "23/06/2026",
+          "Metodo": "PayPal",
           "Note": null,
           "Anticipo da rimborsare": null
         },
@@ -348,7 +353,8 @@
         "Utile lordo",
         "Incassato?",
         "Metodo",
-        "Note"
+        "Note",
+        "Venditore"
       ],
       "rows": [
         {
@@ -359,10 +365,11 @@
           "Prezzo unitario": 15,
           "Ricavo": 0,
           "Costo stimato": 0,
-          "Utile lordo": 0,
+          "Utile lordo": null,
           "Incassato?": "Sì",
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Venditore": null
         },
         {
           "Data": "16/06/2026",
@@ -375,7 +382,8 @@
           "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Venditore": null
         },
         {
           "Data": "16/06/2026",
@@ -388,7 +396,8 @@
           "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Venditore": null
         },
         {
           "Data": "16/06/2026",
@@ -401,7 +410,8 @@
           "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Venditore": null
         },
         {
           "Data": "16/06/2026",
@@ -414,7 +424,8 @@
           "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Venditore": null
         },
         {
           "Data": "16/06/2026",
@@ -427,7 +438,8 @@
           "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Venditore": null
         },
         {
           "Data": "16/06/2026",
@@ -440,7 +452,8 @@
           "Utile lordo": 0,
           "Incassato?": "Sì",
           "Metodo": null,
-          "Note": null
+          "Note": null,
+          "Venditore": null
         },
         {
           "Data": "17/06/2026",
@@ -453,11 +466,12 @@
           "Utile lordo": 18.6,
           "Incassato?": "Sì",
           "Metodo": "Revolut Angelo",
-          "Note": null
+          "Note": "Dati a Mimmo",
+          "Venditore": null
         },
         {
           "Data": "17/06/2026",
-          "Acquirente": "De Matola",
+          "Acquirente": "Marra",
           "Descrizione": "Patch categoria",
           "Quantità": 1,
           "Prezzo unitario": 12,
@@ -466,9 +480,265 @@
           "Utile lordo": 9.3,
           "Incassato?": "Sì",
           "Metodo": "Contanti",
-          "Note": "Mimmo"
+          "Note": "Dati a Mimmo",
+          "Venditore": null
+        },
+        {
+          "Data": "18/06/2026",
+          "Acquirente": "Ragnoli",
+          "Descrizione": "Patch categoria",
+          "Quantità": 1,
+          "Prezzo unitario": 12,
+          "Ricavo": 12,
+          "Costo stimato": 2.7,
+          "Utile lordo": 9.3,
+          "Incassato?": "Sì",
+          "Metodo": "Contanti",
+          "Note": "Dati a Mimmo",
+          "Venditore": null
+        },
+        {
+          "Data": "22/06/2026",
+          "Acquirente": "Lombardo",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 24,
+          "Costo stimato": 5.4,
+          "Utile lordo": 18.6,
+          "Incassato?": "Sì",
+          "Metodo": "Contanti",
+          "Note": "Dati a Mimmo",
+          "Venditore": null
+        },
+        {
+          "Data": "22/06/2026",
+          "Acquirente": "De Rosa",
+          "Descrizione": "Patch categoria",
+          "Quantità": 1,
+          "Prezzo unitario": 12,
+          "Ricavo": 12,
+          "Costo stimato": 2.7,
+          "Utile lordo": 9.3,
+          "Incassato?": "Sì",
+          "Metodo": "Revolut Angelo",
+          "Note": "Dati a Mimmo",
+          "Venditore": null
+        },
+        {
+          "Data": "22/06/2026",
+          "Acquirente": "Lombardo",
+          "Descrizione": "Patch categoria",
+          "Quantità": 1,
+          "Prezzo unitario": 12,
+          "Ricavo": 0,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null,
+          "Venditore": null
+        },
+        {
+          "Data": "22/06/2026",
+          "Acquirente": "Losito",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 0,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null,
+          "Venditore": null
+        },
+        {
+          "Data": "22/06/2026",
+          "Acquirente": "Marchesani",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 0,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null,
+          "Venditore": null
+        },
+        {
+          "Data": "22/06/2026",
+          "Acquirente": "Locorotondo",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 0,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null,
+          "Venditore": null
+        },
+        {
+          "Data": "22/06/2026",
+          "Acquirente": "Palma",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 0,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null,
+          "Venditore": null
+        },
+        {
+          "Data": "22/06/2026",
+          "Acquirente": "Torrente",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 0,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null,
+          "Venditore": null
+        },
+        {
+          "Data": "22/06/2026",
+          "Acquirente": "Fragnito",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 0,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null,
+          "Venditore": null
+        },
+        {
+          "Data": "30/06/2026",
+          "Acquirente": "Rivellino",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 24,
+          "Costo stimato": 5.4,
+          "Utile lordo": 18.6,
+          "Incassato?": "Sì",
+          "Metodo": "PayPal",
+          "Note": "Dati a Mimmo",
+          "Venditore": null
+        },
+        {
+          "Data": "30/06/2026",
+          "Acquirente": "Jimmy",
+          "Descrizione": "Patch categoria",
+          "Quantità": 3,
+          "Prezzo unitario": 15,
+          "Ricavo": 45,
+          "Costo stimato": 8.100000000000001,
+          "Utile lordo": 36.9,
+          "Incassato?": "Sì",
+          "Metodo": "Contanti",
+          "Note": "Dati a Mimmo",
+          "Venditore": null
+        },
+        {
+          "Data": "30/06/2026",
+          "Acquirente": "Caprara",
+          "Descrizione": "Patch categoria",
+          "Quantità": 1,
+          "Prezzo unitario": 15,
+          "Ricavo": 15,
+          "Costo stimato": 2.7,
+          "Utile lordo": 12.3,
+          "Incassato?": "Sì",
+          "Metodo": "Contanti",
+          "Note": "Dati a Mimmo",
+          "Venditore": null
+        },
+        {
+          "Data": "30/06/2026",
+          "Acquirente": "Di Stefano",
+          "Descrizione": "Patch categoria",
+          "Quantità": 2,
+          "Prezzo unitario": 12,
+          "Ricavo": 0,
+          "Costo stimato": 0,
+          "Utile lordo": 0,
+          "Incassato?": "Sì",
+          "Metodo": null,
+          "Note": null,
+          "Venditore": null
+        },
+        {
+          "Data": "03/07/2026",
+          "Acquirente": "Radunista",
+          "Descrizione": "Patch categoria",
+          "Quantità": 1,
+          "Prezzo unitario": 15,
+          "Ricavo": 15,
+          "Costo stimato": 2.7,
+          "Utile lordo": 12.3,
+          "Incassato?": "Sì",
+          "Metodo": "Contanti",
+          "Note": "Dati a Mimmo",
+          "Venditore": null
+        },
+        {
+          "Data": "06/07/2026",
+          "Acquirente": "Sanarica",
+          "Descrizione": "Patch categoria",
+          "Quantità": 1,
+          "Prezzo unitario": 15,
+          "Ricavo": 20,
+          "Costo stimato": 2.7,
+          "Utile lordo": 17.3,
+          "Incassato?": "Sì",
+          "Metodo": "Contanti",
+          "Note": "Dati a Mimmo",
+          "Venditore": null
+        },
+        {
+          "Data": "06/07/2026",
+          "Acquirente": "Sanarica",
+          "Descrizione": "Patch categoria",
+          "Quantità": 5,
+          "Prezzo unitario": 15,
+          "Ricavo": 75,
+          "Costo stimato": 13.5,
+          "Utile lordo": 61.5,
+          "Incassato?": "Sì",
+          "Metodo": "Contanti",
+          "Note": "Dati a Mimmo",
+          "Venditore": null
         }
       ]
+    },
+    "assignments": {
+      "title": "Patch affidate per la vendita",
+      "headers": [
+        "Data affidamento",
+        "Venditore",
+        "Quantità affidata",
+        "Quantità venduta",
+        "Quantità restituita",
+        "Patch ancora affidate",
+        "Incasso vendite",
+        "Versato in cassa",
+        "Denaro da versare",
+        "Stato / Note",
+        "Stato"
+      ],
+      "rows": []
     },
     "expenses": {
       "title": "Spese di categoria",
@@ -507,19 +777,13 @@
       "rows": [
         {
           "Voce": "Quote incassate",
-          "Importo": 275.0,
+          "Importo": 375.0,
           "Segno": "Entrata",
           "Note": "Quote iniziali effettive pagate dai componenti"
         },
         {
-          "Voce": "Anticipi da restituire",
-          "Importo": 245.0,
-          "Segno": "Debito",
-          "Note": "Anticipi temporanei registrati nelle quote, esclusi dagli incassi quota"
-        },
-        {
           "Voce": "Ricavi patch incassati totali",
-          "Importo": 36.0,
+          "Importo": 278.0,
           "Segno": "Entrata",
           "Note": "Vendite incassate totali: esterni + interni"
         },
@@ -537,25 +801,19 @@
         },
         {
           "Voce": "Cassa disponibile stimata",
-          "Importo": -64.0,
+          "Importo": 33.0,
           "Segno": "Saldo",
           "Note": "Entrate, ricavi e anticipi temporanei - uscite"
         },
         {
-          "Voce": "Saldo netto dopo rimborsi",
-          "Importo": -309.0,
-          "Segno": "Saldo",
-          "Note": "Cassa stimata al netto degli anticipi ancora da restituire"
-        },
-        {
           "Voce": "Ricavi patch esterni incassati",
-          "Importo": 0.0,
+          "Importo": 170.0,
           "Segno": "Entrata",
           "Note": "Vendite incassate a prezzo esterni"
         },
         {
           "Voce": "Ricavi patch interni incassati",
-          "Importo": 36.0,
+          "Importo": 108.0,
           "Segno": "Entrata",
           "Note": "Vendite incassate a prezzo interni"
         }
@@ -578,13 +836,13 @@
         },
         {
           "Voce": "Patch vendute",
-          "Valore": 16.0,
+          "Valore": 48.0,
           "Unità": "pezzi",
           "Note": "Totale inserito in Vendite_Patch"
         },
         {
           "Voce": "Patch disponibili",
-          "Valore": 184.0,
+          "Valore": 152.0,
           "Unità": "pezzi",
           "Note": "Acquistate - vendute"
         },
@@ -623,7 +881,8 @@
       "Vendite_Patch",
       "Spese_Categoria",
       "Magazzino_Cassa",
-      "Liste"
+      "Liste",
+      "Affidamenti_Patch"
     ]
   },
   "statute": {
