@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-11T10:10:23.861059+00:00",
+  "generatedAt": "2026-07-11T10:21:08.575599+00:00",
   "sources": {
     "excel": {
       "file": "calottino_categoria_gestione.xlsx",
-      "modifiedAt": "2026-07-11T12:10:19.719376"
+      "modifiedAt": "2026-07-11T12:21:03.792636"
     }
   },
   "excel": {
@@ -882,7 +882,8 @@
       "Spese_Categoria",
       "Magazzino_Cassa",
       "Liste",
-      "Affidamenti_Patch"
+      "Affidamenti_Patch",
+      "Venditori_Affidatari"
     ]
   },
   "statute": {
