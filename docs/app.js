@@ -104,6 +104,10 @@ function bindEvents() {
     });
     renderPeople(filtered);
   });
+
+  document.querySelector('.main-nav a[href="#quote"]')?.addEventListener("click", () => {
+    document.querySelector("#membersDetails").open = true;
+  });
 }
 
 function renderAll() {

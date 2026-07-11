@@ -19,9 +19,9 @@
       </a>
       <nav class="main-nav" aria-label="Sezioni principali">
         <a href="#dashboard">Dashboard</a>
-        <a href="#quote">Quote</a>
         <a href="#patch">Patch</a>
-        <a href="#spese">Spese</a>
+        <a href="#quote">Componenti</a>
+        <a href="#spese">Regole</a>
         <a href="#statuto">Statuto</a>
       </nav>
     </header>
@@ -98,22 +98,6 @@
         </div>
       </section>
 
-      <section id="quote" class="data-section">
-        <div class="section-inner">
-          <div class="section-head-row">
-            <div class="section-heading">
-              <span>Componenti</span>
-              <h2>Quote iniziali</h2>
-            </div>
-            <label class="search-box">
-              <span>Cerca</span>
-              <input id="memberSearch" type="search" placeholder="Cognome o stato">
-            </label>
-          </div>
-          <div id="peopleTable" class="table-shell"></div>
-        </div>
-      </section>
-
       <section id="patch" class="data-section section-alt patch-section">
         <div class="section-inner patch-layout">
           <aside class="patch-sidebar" aria-label="Navigazione area patch">
@@ -170,6 +154,30 @@
               <div id="expensesTable" class="table-shell compact"></div>
             </article>
           </div>
+        </div>
+      </section>
+
+      <section id="quote" class="data-section members-section">
+        <div class="section-inner">
+          <details id="membersDetails" class="members-disclosure">
+            <summary>
+              <div class="section-heading">
+                <span>Componenti</span>
+                <h2>Quote iniziali</h2>
+              </div>
+              <span class="collapse-control" aria-hidden="true"></span>
+            </summary>
+            <div class="members-content">
+              <div class="section-head-row">
+                <p>Situazione quote dei componenti</p>
+                <label class="search-box">
+                  <span>Cerca</span>
+                  <input id="memberSearch" type="search" placeholder="Cognome o stato">
+                </label>
+              </div>
+              <div id="peopleTable" class="table-shell"></div>
+            </div>
+          </details>
         </div>
       </section>
 

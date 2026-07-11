@@ -641,6 +641,77 @@ h1 span {
   margin-bottom: 22px;
 }
 
+.members-section {
+  padding-bottom: 28px;
+}
+
+.members-disclosure {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.members-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.members-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapse-control {
+  position: relative;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.collapse-control::before,
+.collapse-control::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  width: 10px;
+  height: 2px;
+  background: var(--black);
+  transition: transform 180ms ease;
+}
+
+.collapse-control::before {
+  left: 12px;
+  transform: rotate(45deg);
+}
+
+.collapse-control::after {
+  right: 12px;
+  transform: rotate(-45deg);
+}
+
+.members-disclosure[open] .collapse-control::before {
+  transform: rotate(-45deg);
+}
+
+.members-disclosure[open] .collapse-control::after {
+  transform: rotate(45deg);
+}
+
+.members-content {
+  padding: 4px 0 28px;
+}
+
+.members-content .section-head-row > p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
 .search-box {
   display: grid;
   gap: 7px;
@@ -965,8 +1036,12 @@ tr:last-child td {
   }
 
   .main-nav a {
-    padding: 9px 10px;
+    padding: 9px 7px;
     font-size: 12px;
+  }
+
+  .main-nav {
+    gap: 1px;
   }
 
   .hero-section {
