@@ -132,27 +132,9 @@ function renderAll() {
 
 function renderKpis(summary) {
   const cards = [
-    ["Cassa disponibile", euro.format(summary.cashAvailable), "Include eventuali anticipi temporanei"],
-    ["Quote incassate", euro.format(summary.duesCollected), `${summary.membersPaid}/${summary.membersTotal} persone in regola`],
     ["Ricavi patch", euro.format(summary.patchRevenue), `${euro.format(summary.patchRevenueExternal || 0)} esterni, ${euro.format(summary.patchRevenueInternal || 0)} interni`],
     ["Patch disponibili", integer.format(summary.patchAvailable), `${integer.format(summary.patchInStock ?? summary.patchAvailable)} in magazzino, ${integer.format(summary.patchEntrusted || 0)} affidate`],
   ];
-
-  if (summary.advancesOutstanding > 0) {
-    cards.splice(2, 0, [
-      "Anticipi da restituire",
-      euro.format(summary.advancesOutstanding),
-      `${euro.format(summary.advancesReceived || 0)} anticipati, ${euro.format(summary.advancesReimbursed || 0)} rimborsati`,
-    ]);
-  }
-
-  if (summary.cashHeldBySellers > 0) {
-    cards.splice(3, 0, [
-      "Da versare in cassa",
-      euro.format(summary.cashHeldBySellers),
-      "Incassi ancora presso i venditori",
-    ]);
-  }
 
   document.querySelector("#kpiGrid").innerHTML = cards
     .map(([label, value, note]) => `
@@ -188,6 +170,7 @@ function renderFlowList(rows) {
 
 function renderInventoryList(rows) {
   const visibleRows = rows.filter((row) => ["Patch acquistate", "Patch vendute", "Patch disponibili"].includes(row.Voce));
+  visibleRows.push({ Voce: "Patch affidate", Valore: siteData.excel.summary.patchEntrusted || 0, Unità: "pezzi" });
   document.querySelector("#inventoryList").innerHTML = visibleRows
     .map((row) => `
       <div class="mini-item">
