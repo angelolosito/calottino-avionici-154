@@ -56,16 +56,23 @@
         <div class="section-inner overview-grid">
           <article class="panel panel-dark">
             <div class="section-heading">
-              <span>Quote</span>
-              <h2>Stato incassi</h2>
+              <span>Gestione</span>
+              <h2>Risultato netto</h2>
             </div>
-            <div class="progress-ring-wrap">
-              <div class="progress-ring" id="duesRing" style="--progress: 0deg">
-                <span id="duesRate">0%</span>
+            <div class="result-panel">
+              <div class="result-total">
+                <span>Entrate meno uscite</span>
+                <strong id="managementResult">0,00 €</strong>
               </div>
-              <div>
-                <p id="duesText">...</p>
-                <div class="bar-track"><span id="duesBar"></span></div>
+              <div class="result-breakdown">
+                <div>
+                  <span>Entrate effettive</span>
+                  <strong id="managementIncome">0,00 €</strong>
+                </div>
+                <div>
+                  <span>Uscite complessive</span>
+                  <strong id="managementExpenses">0,00 €</strong>
+                </div>
               </div>
             </div>
           </article>

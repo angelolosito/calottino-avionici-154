@@ -116,7 +116,7 @@ function renderAll() {
   document.querySelector("#sourceInfo").textContent = `Fonte: ${siteData.sources.excel.file}`;
 
   renderKpis(summary);
-  renderDues(summary);
+  renderManagementResult(summary);
   renderFlowList(excel.flows.rows);
   renderInventoryList(excel.inventory.rows);
   renderPatchDashboard(summary);
@@ -125,7 +125,8 @@ function renderAll() {
   renderDataTable("#salesTable", excel.sales.rows, ["Data", "Acquirente", "Venditore", "Descrizione", "Quantità", "Prezzo unitario", "Ricavo", "Utile lordo", "Incassato?", "Metodo", "Note"], "Nessuna vendita registrata.");
   renderDataTable("#purchasesTable", excel.purchases.rows, ["Data", "Fornitore", "Lotto / Descrizione", "Quantità", "Costo unitario", "Costo totale", "Stato pagamento"], "Nessun acquisto registrato.");
   renderDataTable("#expensesTable", excel.expenses.rows, ["Data", "Categoria", "Descrizione", "Importo", "Pagato da", "Metodo", "Approvata?", "Note"], "Nessuna spesa registrata.");
-  renderDataTable("#parametersTable", excel.parameters.rows, ["Voce", "Valore", "Unità", "Note"], "Nessun parametro disponibile.");
+  const visibleParameters = excel.parameters.rows.filter((row) => !String(row.Voce || "").includes("Margine unitario"));
+  renderDataTable("#parametersTable", visibleParameters, ["Voce", "Valore", "Unità", "Note"], "Nessun parametro disponibile.");
   renderStatute(siteData.statute);
 }
 
@@ -135,7 +136,6 @@ function renderKpis(summary) {
     ["Quote incassate", euro.format(summary.duesCollected), `${summary.membersPaid}/${summary.membersTotal} persone in regola`],
     ["Ricavi patch", euro.format(summary.patchRevenue), `${euro.format(summary.patchRevenueExternal || 0)} esterni, ${euro.format(summary.patchRevenueInternal || 0)} interni`],
     ["Patch disponibili", integer.format(summary.patchAvailable), `${integer.format(summary.patchInStock ?? summary.patchAvailable)} in magazzino, ${integer.format(summary.patchEntrusted || 0)} affidate`],
-    ["Margini unitari", `${euro.format(summary.patchUnitMarginExternal || summary.patchUnitMargin || 0)} / ${euro.format(summary.patchUnitMarginInternal || 0)}`, "Esterni / interni"],
   ];
 
   if (summary.advancesOutstanding > 0) {
@@ -165,14 +165,14 @@ function renderKpis(summary) {
     .join("");
 }
 
-function renderDues(summary) {
-  const rate = Math.max(0, Math.min(100, Number(summary.duesCompletionRate) || 0));
-  document.querySelector("#duesRate").textContent = `${rate.toLocaleString("it-IT")}%`;
-  document.querySelector("#duesRing").style.setProperty("--progress", `${rate * 3.6}deg`);
-  document.querySelector("#duesBar").style.width = `${rate}%`;
-  document.querySelector("#duesText").textContent =
-    `${euro.format(summary.duesCollected)} incassati su ${euro.format(summary.duesExpected)} previsti. ` +
-    `${euro.format(summary.duesRemaining)} ancora da incassare.`;
+function renderManagementResult(summary) {
+  const income = Number(summary.duesCollected || 0) + Number(summary.patchRevenueInCash ?? summary.patchRevenue ?? 0);
+  const expenses = Number(summary.patchPurchaseCost || 0) + Number(summary.categoryExpenses || 0);
+  const result = income - expenses;
+  document.querySelector("#managementIncome").textContent = euro.format(income);
+  document.querySelector("#managementExpenses").textContent = euro.format(expenses);
+  document.querySelector("#managementResult").textContent = euro.format(result);
+  document.querySelector("#managementResult").classList.toggle("is-negative", result < 0);
 }
 
 function renderFlowList(rows) {
@@ -187,7 +187,8 @@ function renderFlowList(rows) {
 }
 
 function renderInventoryList(rows) {
-  document.querySelector("#inventoryList").innerHTML = rows
+  const visibleRows = rows.filter((row) => ["Patch acquistate", "Patch vendute", "Patch disponibili"].includes(row.Voce));
+  document.querySelector("#inventoryList").innerHTML = visibleRows
     .map((row) => `
       <div class="mini-item">
         <span>${escapeHtml(row.Voce)}</span>
@@ -222,11 +223,6 @@ function renderPatchDashboard(summary) {
       "Ricavi divisi",
       euro.format(summary.patchRevenue || 0),
       `${euro.format(summary.patchRevenueExternal || 0)} esterni, ${euro.format(summary.patchRevenueInternal || 0)} interni`,
-    ],
-    [
-      "Break-even",
-      `${integer.format(summary.breakEvenPatchesExternal || 0)} / ${integer.format(summary.breakEvenPatchesInternal || 0)}`,
-      "Pezzi esterni / interni",
     ],
   ];
 

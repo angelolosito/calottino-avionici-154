@@ -539,50 +539,48 @@ h1 span {
   line-height: 1.05;
 }
 
-.progress-ring-wrap {
+.result-panel {
   display: grid;
-  grid-template-columns: 132px minmax(0, 1fr);
-  gap: 22px;
-  align-items: center;
-  margin-top: 28px;
+  gap: 26px;
+  margin-top: 30px;
 }
 
-.progress-ring {
-  display: grid;
-  place-items: center;
-  width: 132px;
-  height: 132px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle closest-side, #151518 72%, transparent 73%),
-    conic-gradient(#ff334b var(--progress), rgba(255, 255, 255, 0.16) 0);
-}
-
-.progress-ring span {
-  color: #fff;
-  font-size: 28px;
-  font-weight: 900;
-}
-
-.progress-ring-wrap p {
-  margin-bottom: 18px;
-  color: rgba(255, 255, 255, 0.72);
-  line-height: 1.5;
-}
-
-.bar-track {
-  height: 10px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
-}
-
-.bar-track span {
+.result-total span,
+.result-breakdown span {
   display: block;
-  width: 0%;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #ff4a5d, #fff);
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.result-total strong {
+  display: block;
+  margin-top: 10px;
+  color: #fff;
+  font-size: 42px;
+  line-height: 1;
+}
+
+.result-total strong.is-negative {
+  color: #ff7383;
+}
+
+.result-breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.result-breakdown > div {
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.result-breakdown strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 18px;
 }
 
 .flow-list,
@@ -1048,8 +1046,11 @@ tr:last-child td {
     grid-template-columns: 1fr;
   }
 
-  .progress-ring-wrap,
   .logo-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .result-breakdown {
     grid-template-columns: 1fr;
   }
 
