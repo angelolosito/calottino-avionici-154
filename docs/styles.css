@@ -1118,7 +1118,9 @@ tr:last-child td {
   }
 
   .patch-sidebar {
-    top: 116px;
+    position: static;
+    top: auto;
+    z-index: auto;
   }
 
   .patch-sidebar-card {
@@ -1155,7 +1157,7 @@ tr:last-child td {
   .patch-block,
   .patch-summary-grid,
   .patch-table-end {
-    scroll-margin-top: 318px;
+    scroll-margin-top: 116px;
   }
 
   .section-inner {
