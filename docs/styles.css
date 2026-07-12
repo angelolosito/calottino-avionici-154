@@ -1024,7 +1024,7 @@ tr:last-child td {
   }
 
   .patch-nav {
-    grid-template-columns: repeat(6, minmax(106px, 1fr));
+    grid-template-columns: repeat(5, minmax(112px, 1fr));
     gap: 8px;
     margin-top: 0;
     overflow-x: auto;
